@@ -1,0 +1,1282 @@
+{
+  "info": {
+    "_postman_id": "38417a2f-5399-442f-918c-fef719f827d6",
+    "name": "OpenAPI definition",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51644064",
+    "_collection_link": "https://go.postman.co/collection/51644064-38417a2f-5399-442f-918c-fef719f827d6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "usuarios",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "senha",
+                  "item": [
+                    {
+                      "name": "Alterar senha",
+                      "request": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"novaSenha\": \"654321\",\n  \"senhaAtual\": \"123456\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id/senha",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id",
+                            "senha"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "3"
+                            }
+                          ]
+                        },
+                        "description": "Endpoint exclusivo para troca de senha. Requer senha atual para validação."
+                      },
+                      "response": [
+                        {
+                          "name": "Senha alterada com sucesso",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"novaSenha\": \"string\",\n  \"senhaAtual\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/usuarios/:id/senha",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "usuarios",
+                                ":id",
+                                "senha"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "7006"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "No Content",
+                          "code": 204,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "body": ""
+                        },
+                        {
+                          "name": "Dados inválidos",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"novaSenha\": \"string\",\n  \"senhaAtual\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/usuarios/:id/senha",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "usuarios",
+                                ":id",
+                                "senha"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "7006"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                        },
+                        {
+                          "name": "Senha atual incorreta",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"novaSenha\": \"string\",\n  \"senhaAtual\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/usuarios/:id/senha",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "usuarios",
+                                ":id",
+                                "senha"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "7006"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                        },
+                        {
+                          "name": "Usuário não encontrado",
+                          "originalRequest": {
+                            "method": "PATCH",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"novaSenha\": \"string\",\n  \"senhaAtual\": \"string\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/usuarios/:id/senha",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "usuarios",
+                                ":id",
+                                "senha"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id",
+                                  "value": "7006"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Buscar usuário por ID",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    },
+                    "description": "Retorna os dados de um usuário específico pelo seu ID"
+                  },
+                  "response": [
+                    {
+                      "name": "Usuário encontrado",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                    },
+                    {
+                      "name": "Usuário não encontrado",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "Atualizar dados cadastrais",
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cpf\": \"01074277104\",\n  \"email\": \"artur.oliveira@preddata.com\",\n  \"login\": \"artur.oliveira.2\",\n  \"nome\": \"Artur Outro Oliveira\",\n  \"senha\": \"123456\",\n  \"tipoUsuario\": \"CLIENTE\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "3"
+                        }
+                      ]
+                    },
+                    "description": "Atualiza dados do usuário (exceto senha, CPF e login). Para senha, use o endpoint PATCH /v1/usuarios/{id}/senha"
+                  },
+                  "response": [
+                    {
+                      "name": "Usuário atualizado com sucesso",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                    },
+                    {
+                      "name": "Dados inválidos",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    },
+                    {
+                      "name": "Usuário não encontrado",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    },
+                    {
+                      "name": "Email já cadastrado",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    }
+                  ]
+                },
+                {
+                  "name": "Excluir usuário",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id",
+                          "value": "4"
+                        }
+                      ]
+                    },
+                    "description": "Remove um usuário do sistema"
+                  },
+                  "response": [
+                    {
+                      "name": "Usuário excluído com sucesso",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Usuário não encontrado",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id",
+                              "value": "7006"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "login",
+              "item": [
+                {
+                  "name": "Validar login",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"login\": \"artur.oliveira\",\n  \"senha\": \"654321\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios",
+                        "login"
+                      ]
+                    },
+                    "description": "Valida credenciais de login e retorna dados do usuário se válido"
+                  },
+                  "response": [
+                    {
+                      "name": "Login válido",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"login\": \"string\",\n  \"senha\": \"string\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            "login"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                    },
+                    {
+                      "name": "Dados inválidos",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"login\": \"string\",\n  \"senha\": \"string\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            "login"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    },
+                    {
+                      "name": "Credenciais inválidas",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"login\": \"string\",\n  \"senha\": \"string\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/login",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            "login"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "nome",
+              "item": [
+                {
+                  "name": "{nome}",
+                  "item": [
+                    {
+                      "name": "Buscar usuários por nome",
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/usuarios/nome/:nome",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "usuarios",
+                            "nome",
+                            ":nome"
+                          ],
+                          "variable": [
+                            {
+                              "key": "nome",
+                              "value": "Artur"
+                            }
+                          ]
+                        },
+                        "description": "Busca usuários cujo nome contenha o texto fornecido (case-insensitive)"
+                      },
+                      "response": [
+                        {
+                          "name": "Lista de usuários encontrados",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "*/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/usuarios/nome/:nome",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "usuarios",
+                                "nome",
+                                ":nome"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "nome",
+                                  "value": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "*/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Listar todos os usuários",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/usuarios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "usuarios"
+                  ]
+                },
+                "description": "Retorna a lista completa de usuários cadastrados"
+              },
+              "response": [
+                {
+                  "name": "Lista de usuários",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Criar novo usuário",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cpf\": \"01074277105\",\n  \"email\": \"artur.oliveira@preddata.com.br\",\n  \"login\": \"artur.oliveira.2\",\n  \"nome\": \"Artur Oliveira\",\n  \"senha\": \"123456\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"Qualquer Rua\",\n  \"enderecoNumero\": \"400\",\n  \"enderecoCidade\": \"Curitiba\",\n  \"enderecoCep\": \"80040140\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/usuarios",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "usuarios"
+                  ]
+                },
+                "description": "Cria um novo usuário no sistema. Valida email, login e CPF únicos."
+              },
+              "response": [
+                {
+                  "name": "Usuário criado com sucesso",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"id\": 1602,\n  \"nome\": \"string\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"cpf\": \"string\",\n  \"tipoUsuario\": \"CLIENTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"string\",\n  \"dataCriacao\": \"1977-11-25T20:16:23.980Z\",\n  \"dataAtualizacao\": \"2008-11-01T20:48:29.599Z\"\n}"
+                },
+                {
+                  "name": "Dados inválidos",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                },
+                {
+                  "name": "Email, login ou CPF já cadastrado",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"cpf\": \"stringstrin\",\n  \"email\": \"string\",\n  \"login\": \"string\",\n  \"nome\": \"string\",\n  \"senha\": \"string\",\n  \"tipoUsuario\": \"DONO_RESTAURANTE\",\n  \"enderecoRua\": \"string\",\n  \"enderecoNumero\": \"string\",\n  \"enderecoCidade\": \"string\",\n  \"enderecoCep\": \"stringst\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/usuarios",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"type\": \"https://agqGSIhOiAtt.bjxmWBwMHiOiXCSTpyv3g.0L0aq1shr1,6rv5UWaT\",\n  \"title\": \"string\",\n  \"status\": 5309,\n  \"detail\": \"string\",\n  \"instance\": \"http://oRMGUYelL.ejtSJh.JsbJYlz9gU3cXHHDQLLm.eKp7pWQfnGEjJMaCBFdRfAdRjmtpu9.V\",\n  \"properties\": {\n    \"key_0\": {},\n    \"key_1\": {},\n    \"key_2\": {}\n  }\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
