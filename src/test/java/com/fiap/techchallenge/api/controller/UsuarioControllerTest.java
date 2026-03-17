@@ -113,7 +113,7 @@ class UsuarioControllerTest {
                 mockMvc.perform(post("/v1/usuarios")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(usuarioRequestDTO)))
-                                .andExpect(status().isUnprocessableEntity())
+                                .andExpect(status().isUnprocessableContent())
                                 .andExpect(jsonPath("$.title").value("Regra de negócio violada"))
                                 .andExpect(jsonPath("$.status").value(422))
                                 .andExpect(jsonPath("$.detail").value("Email já cadastrado: joao@email.com"));
