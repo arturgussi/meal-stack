@@ -9,7 +9,7 @@ O objetivo principal desta fase é implementar o domínio de usuários com persi
 ## Tecnologias Utilizadas
 
 - Java 21 (LTS)
-- Spring Boot 3.2.1
+- Spring Boot 4.0.3 (Spring Framework 7)
 - Spring JDBC (JdbcTemplate)
 - MySQL 8.4
 - Docker & Docker Compose
@@ -20,7 +20,7 @@ O objetivo principal desta fase é implementar o domínio de usuários com persi
 
 ### Pré-requisitos
 - Docker e Docker Compose instalados
-- Portas `8080` (aplicação) e `3306` (MySQL) disponíveis
+- Portas `8080` (aplicação) e `3306` (MySQL) disponíveis e `5005` (Remote Debug, se usar perfil de Dev).
 
 ### Passos para execução
 
@@ -34,12 +34,18 @@ O objetivo principal desta fase é implementar o domínio de usuários com persi
 
 2. **Iniciar o ambiente com Docker Compose:**
    
-   O comando a seguir compila o projeto (multi-stage build), cria as imagens e inicia os containers.
+   A arquitetura suporta dois perfis de execução. Escolha o mais adequado para o seu momento:
+
+   #### A. Modo Produção (Padrão):
+   - Cria imagens otimizadas, leves e sem ferramentas de build ou cache. Ideal para deploy.
    ```bash
-   docker compose up --build -d
+   docker compose --profile prod up --build -d
    ```
-   
-   A primeira execução pode levar alguns minutos para download das dependências do Maven.
+   #### B. Modo Desenvolvimento (Hot Reload & Debug):
+   Mapeia o código local para dentro do container, habilita o Spring DevTools (restarts automáticos ao salvar arquivos) e abre a porta 5005 para debug.
+   ```bash
+   docker compose --profile dev up --build -d
+   ```
 
 3. **Acessar a aplicação:**
    - API Base: `http://localhost:8080/v1/usuarios`
@@ -57,17 +63,8 @@ A suite de testes inclui 29 testes automatizados cobrindo Services e Controllers
 
 **Via Docker - Modo desenvolvimento:**
 ```bash
-docker compose exec app mvn test
+docker compose --profile dev exec app-dev mvn clean test
 ```
-**Nota:** Este comando requer que o `docker-compose.yml` esteja configurado com `target: dev`. A versão de produção (padrão da entrega) não inclui o Maven.
-
-**Via Docker - Modo produção:**
-Se estiver rodando a versão final de produção e quiser rodar os testes sem instalar nada localmente, use este comando:
-```bash
-docker run --rm -v "$(pwd):/app" -w /app eclipse-temurin:21-jdk-alpine sh -c "apk add --no-cache maven && mvn test"
-```
-*(No Windows PowerShell, substitua `$(pwd)` por `${PWD}`)*
-
 
 ## Links Úteis
 
