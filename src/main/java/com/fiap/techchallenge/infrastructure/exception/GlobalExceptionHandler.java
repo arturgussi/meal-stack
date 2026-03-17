@@ -35,12 +35,12 @@ public class GlobalExceptionHandler {
 
     /**
      * Trata exceções de regra de negócio.
-     * Retorna status 422 (UNPROCESSABLE_ENTITY)
+     * Retorna status 422 (UNPROCESSABLE_CONTENT)
      */
     @ExceptionHandler(RegraNegocioException.class)
     public ProblemDetail handleRegraNegocio(RegraNegocioException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.UNPROCESSABLE_ENTITY,
+                HttpStatus.UNPROCESSABLE_CONTENT,
                 ex.getMessage());
         problemDetail.setTitle("Regra de negócio violada");
         problemDetail.setType(URI.create("https://api.techchallenge.com/errors/business-rule"));

@@ -14,8 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -35,10 +35,9 @@ class UsuarioControllerTest {
         @Autowired
         private MockMvc mockMvc;
 
-        @Autowired
-        private ObjectMapper objectMapper;
+        private ObjectMapper objectMapper = new ObjectMapper();
 
-        @MockBean
+        @MockitoBean
         private UsuarioService usuarioService;
 
         private UsuarioRequestDTO usuarioRequestDTO;
@@ -114,7 +113,7 @@ class UsuarioControllerTest {
                 mockMvc.perform(post("/v1/usuarios")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(usuarioRequestDTO)))
-                                .andExpect(status().isUnprocessableEntity())
+                                .andExpect(status().isUnprocessableContent())
                                 .andExpect(jsonPath("$.title").value("Regra de negócio violada"))
                                 .andExpect(jsonPath("$.status").value(422))
                                 .andExpect(jsonPath("$.detail").value("Email já cadastrado: joao@email.com"));
