@@ -1,0 +1,16 @@
+spring:
+  flyway:
+    locations: classpath:db/migration,classpath:db/devdata
+
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    com.fiap: DEBUG
+    org.springframework.jdbc.core: DEBUG
+    org.flywaydb: DEBUG
