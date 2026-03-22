@@ -4,7 +4,7 @@ import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
 import com.fiap.techchallenge.application.dto.LoginDTO;
 import com.fiap.techchallenge.application.dto.UsuarioRequestDTO;
 import com.fiap.techchallenge.application.dto.UsuarioResponseDTO;
-import com.fiap.techchallenge.domain.entities.Usuario;
+import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.enums.TipoUsuario;
 import com.fiap.techchallenge.domain.repositories.UsuarioRepository;
 import com.fiap.techchallenge.infrastructure.exception.RecursoNaoEncontradoException;
@@ -29,7 +29,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("Testes do UsuarioService")
-class UsuarioServiceImplTest {
+class UserServiceImplTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -38,7 +38,7 @@ class UsuarioServiceImplTest {
     private UsuarioServiceImpl usuarioService;
 
     private UsuarioRequestDTO usuarioRequestDTO;
-    private Usuario usuario;
+    private User user;
 
     @BeforeEach
     void setUp() {
@@ -54,7 +54,7 @@ class UsuarioServiceImplTest {
                 "São Paulo",
                 "01234567");
 
-        usuario = new Usuario(
+        user = new User(
                 "João Silva",
                 "joao@email.com",
                 "joao.silva",
@@ -65,7 +65,7 @@ class UsuarioServiceImplTest {
                 "100",
                 "São Paulo",
                 "01234567");
-        usuario.setId(1L);
+        user.setId(1L);
     }
 
     @Test
@@ -74,7 +74,7 @@ class UsuarioServiceImplTest {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
         when(usuarioRepository.existsByLogin(anyString())).thenReturn(false);
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
-        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
+        when(usuarioRepository.save(any(User.class))).thenReturn(user);
 
         UsuarioResponseDTO resultado = usuarioService.criar(usuarioRequestDTO);
 
@@ -91,7 +91,7 @@ class UsuarioServiceImplTest {
         verify(usuarioRepository, times(1)).existsByEmail("joao@email.com");
         verify(usuarioRepository, times(1)).existsByLogin("joao.silva");
         verify(usuarioRepository, times(1)).existsByCpf("12345678901");
-        verify(usuarioRepository, times(1)).save(any(Usuario.class));
+        verify(usuarioRepository, times(1)).save(any(User.class));
     }
 
     @Test
@@ -106,7 +106,7 @@ class UsuarioServiceImplTest {
         assertEquals("Email já cadastrado: joao@email.com", exception.getMessage());
 
         // Verificar que o save() NÃO foi chamado
-        verify(usuarioRepository, never()).save(any(Usuario.class));
+        verify(usuarioRepository, never()).save(any(User.class));
     }
 
     @Test
@@ -127,7 +127,7 @@ class UsuarioServiceImplTest {
     @DisplayName("Deve lançar exceção ao alterar senha com senha atual incorreta")
     void alterarSenha_ComSenhaIncorreta() {
         AlterarSenhaDTO alterarSenhaDTO = new AlterarSenhaDTO("senhaErrada", "novaSenha123");
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
 
         SenhaInvalidaException exception = assertThrows(
                 SenhaInvalidaException.class,
@@ -136,13 +136,13 @@ class UsuarioServiceImplTest {
         assertEquals("Senha atual incorreta", exception.getMessage());
 
         // Verificar que o save() NÃO foi chamado
-        verify(usuarioRepository, never()).save(any(Usuario.class));
+        verify(usuarioRepository, never()).save(any(User.class));
     }
 
     @Test
     @DisplayName("Deve buscar usuário por ID com sucesso")
     void buscarPorId_ComSucesso() {
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
 
         UsuarioResponseDTO resultado = usuarioService.buscarPorId(1L);
 
@@ -155,8 +155,8 @@ class UsuarioServiceImplTest {
     @Test
     @DisplayName("Deve buscar usuários por nome")
     void buscarPorNome_ComSucesso() {
-        List<Usuario> usuarios = Arrays.asList(usuario);
-        when(usuarioRepository.findByNomeContainingIgnoreCase("Silva")).thenReturn(usuarios);
+        List<User> users = Arrays.asList(user);
+        when(usuarioRepository.findByNomeContainingIgnoreCase("Silva")).thenReturn(users);
 
         List<UsuarioResponseDTO> resultado = usuarioService.buscarPorNome("Silva");
 
@@ -169,8 +169,8 @@ class UsuarioServiceImplTest {
     @Test
     @DisplayName("Deve listar todos os usuários")
     void listarTodos_ComSucesso() {
-        List<Usuario> usuarios = Arrays.asList(usuario);
-        when(usuarioRepository.findAll()).thenReturn(usuarios);
+        List<User> users = Arrays.asList(user);
+        when(usuarioRepository.findAll()).thenReturn(users);
 
         List<UsuarioResponseDTO> resultado = usuarioService.listarTodos();
 
@@ -194,14 +194,14 @@ class UsuarioServiceImplTest {
                 "Rio de Janeiro",
                 "20000000");
 
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
-        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(usuarioRepository.save(any(User.class))).thenReturn(user);
 
         UsuarioResponseDTO resultado = usuarioService.atualizar(1L, dtoAtualizado);
 
         assertNotNull(resultado);
         verify(usuarioRepository, times(1)).findById(1L);
-        verify(usuarioRepository, times(1)).save(any(Usuario.class));
+        verify(usuarioRepository, times(1)).save(any(User.class));
     }
 
     @Test
@@ -219,7 +219,7 @@ class UsuarioServiceImplTest {
                 "São Paulo",
                 "01234567");
 
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
         when(usuarioRepository.existsByEmail("outro@email.com")).thenReturn(true);
 
         RegraNegocioException exception = assertThrows(
@@ -227,27 +227,27 @@ class UsuarioServiceImplTest {
                 () -> usuarioService.atualizar(1L, dtoAtualizado));
 
         assertEquals("Email já cadastrado: outro@email.com", exception.getMessage());
-        verify(usuarioRepository, never()).save(any(Usuario.class));
+        verify(usuarioRepository, never()).save(any(User.class));
     }
 
     @Test
     @DisplayName("Deve alterar senha com sucesso")
     void alterarSenha_ComSucesso() {
         AlterarSenhaDTO alterarSenhaDTO = new AlterarSenhaDTO("senha123", "novaSenha456");
-        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
-        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
+        when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
+        when(usuarioRepository.save(any(User.class))).thenReturn(user);
 
         assertDoesNotThrow(() -> usuarioService.alterarSenha(1L, alterarSenhaDTO));
 
         verify(usuarioRepository, times(1)).findById(1L);
-        verify(usuarioRepository, times(1)).save(any(Usuario.class));
+        verify(usuarioRepository, times(1)).save(any(User.class));
     }
 
     @Test
     @DisplayName("Deve validar login com sucesso")
     void validarLogin_ComSucesso() {
         LoginDTO loginDTO = new LoginDTO("joao.silva", "senha123");
-        when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(user));
 
         UsuarioResponseDTO resultado = usuarioService.validarLogin(loginDTO);
 
@@ -260,7 +260,7 @@ class UsuarioServiceImplTest {
     @DisplayName("Deve lançar exceção ao validar login com credenciais inválidas")
     void validarLogin_ComCredenciaisInvalidas() {
         LoginDTO loginDTO = new LoginDTO("joao.silva", "senhaErrada");
-        when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(user));
 
         SenhaInvalidaException exception = assertThrows(
                 SenhaInvalidaException.class,
@@ -318,7 +318,7 @@ class UsuarioServiceImplTest {
                 () -> usuarioService.criar(usuarioRequestDTO));
 
         assertEquals("Login já cadastrado: joao.silva", exception.getMessage());
-        verify(usuarioRepository, never()).save(any(Usuario.class));
+        verify(usuarioRepository, never()).save(any(User.class));
     }
 
     @Test
@@ -333,6 +333,6 @@ class UsuarioServiceImplTest {
                 () -> usuarioService.criar(usuarioRequestDTO));
 
         assertEquals("CPF já cadastrado: 12345678901", exception.getMessage());
-        verify(usuarioRepository, never()).save(any(Usuario.class));
+        verify(usuarioRepository, never()).save(any(User.class));
     }
 }

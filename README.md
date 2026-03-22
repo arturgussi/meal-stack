@@ -48,7 +48,7 @@ O objetivo principal desta fase é implementar o domínio de usuários com persi
    ```
 
 3. **Acessar a aplicação:**
-   - API Base: `http://localhost:8080/v1/usuarios`
+   - API Base: `http://localhost:8080/v1/users`
    - Documentação Swagger: `http://localhost:8080/swagger-ui.html`
 
 ## Executando Testes

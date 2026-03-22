@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 /**
  * Entidade que representa um usuário no sistema.
  */
-public class Usuario {
+public class User {
 
     private Long id;
     private String nome;
@@ -23,12 +23,12 @@ public class Usuario {
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 
-    public Usuario() {
+    public User() {
     }
 
-    public Usuario(String nome, String email, String login, String senha, String cpf,
-            TipoUsuario tipoUsuario, String enderecoRua, String enderecoNumero,
-            String enderecoCidade, String enderecoCep) {
+    public User(String nome, String email, String login, String senha, String cpf,
+                TipoUsuario tipoUsuario, String enderecoRua, String enderecoNumero,
+                String enderecoCidade, String enderecoCep) {
         this.nome = nome;
         this.email = email;
         this.login = login;

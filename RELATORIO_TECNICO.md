@@ -71,11 +71,11 @@ A API segue o nível 2 do modelo de maturidade de Richardson (Verbos HTTP corret
 
 | Método | Endpoint | Descrição | Status Sucesso |
 |--------|----------|-----------|----------------|
-| `POST` | `/v1/usuarios` | Cria novo usuário | `201 Created` |
-| `GET` | `/v1/usuarios/{id}` | Busca usuário por ID | `200 OK` |
-| `PUT` | `/v1/usuarios/{id}` | Atualiza dados cadastrais | `200 OK` |
-| `PATCH` | `/v1/usuarios/{id}/senha` | Troca de senha (exclusivo) | `204 No Content` |
-| `POST` | `/v1/usuarios/login` | Valida credenciais | `200 OK` |
+| `POST` | `/v1/users` | Cria novo usuário | `201 Created` |
+| `GET` | `/v1/users/{id}` | Busca usuário por ID | `200 OK` |
+| `PUT` | `/v1/users/{id}` | Atualiza dados cadastrais | `200 OK` |
+| `PATCH` | `/v1/users/{id}/senha` | Troca de senha (exclusivo) | `204 No Content` |
+| `POST` | `/v1/users/login` | Valida credenciais | `200 OK` |
 
 ### Tratamento de Erros (RFC 7807)
 

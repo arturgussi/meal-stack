@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.domain.repositories;
+package com.fiap.techchallenge.application.gateways.user;
 
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.enums.TipoUsuario;
@@ -6,8 +6,8 @@ import com.fiap.techchallenge.domain.enums.TipoUsuario;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioRepository {
-
+public interface UserGateway {
+ 
     /**
      * Salva um novo usuário ou atualiza um existente.
      *
@@ -53,7 +53,7 @@ public interface UsuarioRepository {
      * @param nome Parte do nome do usuário
      * @return Lista de usuários encontrados
      */
-    List<User> findByNomeContainingIgnoreCase(String nome);
+    List<User> findByNameContainingIgnoreCase(String nome);
 
     /**
      * Busca um usuário pelo CPF.
@@ -69,7 +69,7 @@ public interface UsuarioRepository {
      * @param tipoUsuario Tipo do usuário
      * @return Lista de usuários do tipo especificado
      */
-    List<User> findByTipoUsuario(TipoUsuario tipoUsuario);
+    List<User> findByUserType(TipoUsuario tipoUsuario);
 
     /**
      * Verifica se existe um usuário com o email especificado.
