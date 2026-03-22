@@ -17,11 +17,11 @@ public class ChangeUserPasswordUseCase {
         User existingUser = userGateway.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException(
                 "Usuário não encontrado com ID: " + id));
 
-        if (!existingUser.getSenha().equals(oldPassword)) {
+        if (!existingUser.getPassword().equals(oldPassword)) {
             throw new SenhaInvalidaException("Senha atual errada");
         }
 
-        existingUser.setSenha(newPassword);
+        existingUser.setPassword(newPassword);
 
         return existingUser;
     }

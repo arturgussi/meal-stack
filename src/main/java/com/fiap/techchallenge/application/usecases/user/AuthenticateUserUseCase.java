@@ -16,7 +16,7 @@ public class AuthenticateUserUseCase {
         User existingUser = userGateway.findByLogin(login).orElseThrow(() -> new SenhaInvalidaException(
                 "Credenciais inválidas"));
 
-        if (!existingUser.getSenha().equals(password)) {
+        if (!existingUser.getPassword().equals(password)) {
             throw new SenhaInvalidaException("Credenciais inválidas");
         }
 

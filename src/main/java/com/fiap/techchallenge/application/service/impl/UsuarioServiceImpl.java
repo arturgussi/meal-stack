@@ -86,13 +86,13 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RegraNegocioException("Email já cadastrado: " + dto.getEmail());
         }
 
-        user.setNome(dto.getNome());
+        user.setName(dto.getNome());
         user.setEmail(dto.getEmail());
-        user.setTipoUsuario(dto.getTipoUsuario());
-        user.setEnderecoRua(dto.getEnderecoRua());
-        user.setEnderecoNumero(dto.getEnderecoNumero());
-        user.setEnderecoCidade(dto.getEnderecoCidade());
-        user.setEnderecoCep(dto.getEnderecoCep());
+        user.setUserType(dto.getTipoUsuario());
+        user.setStreetAddress(dto.getEnderecoRua());
+        user.setNumberAddress(dto.getEnderecoNumero());
+        user.setCityAddress(dto.getEnderecoCidade());
+        user.setCepAddress(dto.getEnderecoCep());
 
         User atualizado = usuarioRepository.save(user);
         return toResponseDTO(atualizado);
@@ -104,11 +104,11 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException(
                         "Usuário não encontrado com ID: " + id));
 
-        if (!user.getSenha().equals(dto.getSenhaAtual())) {
+        if (!user.getPassword().equals(dto.getSenhaAtual())) {
             throw new SenhaInvalidaException("Senha atual incorreta");
         }
 
-        user.setSenha(dto.getNovaSenha());
+        user.setPassword(dto.getNovaSenha());
         usuarioRepository.save(user);
     }
 
@@ -118,7 +118,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         User user = usuarioRepository.findByLogin(dto.getLogin())
                 .orElseThrow(() -> new SenhaInvalidaException("Credenciais inválidas"));
 
-        if (!user.getSenha().equals(dto.getSenha())) {
+        if (!user.getPassword().equals(dto.getSenha())) {
             throw new SenhaInvalidaException("Credenciais inválidas");
         }
 
@@ -152,16 +152,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     private UsuarioResponseDTO toResponseDTO(User entity) {
         return new UsuarioResponseDTO(
                 entity.getId(),
-                entity.getNome(),
+                entity.getName(),
                 entity.getEmail(),
                 entity.getLogin(),
                 entity.getCpf(),
-                entity.getTipoUsuario(),
-                entity.getEnderecoRua(),
-                entity.getEnderecoNumero(),
-                entity.getEnderecoCidade(),
-                entity.getEnderecoCep(),
-                entity.getDataCriacao(),
-                entity.getDataAtualizacao());
+                entity.getUserType(),
+                entity.getStreetAddress(),
+                entity.getNumberAddress(),
+                entity.getCityAddress(),
+                entity.getCepAddress(),
+                entity.getCreatedAt(),
+                entity.getUpdatedAt());
     }
 }

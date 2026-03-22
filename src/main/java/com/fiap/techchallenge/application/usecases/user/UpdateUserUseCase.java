@@ -22,13 +22,13 @@ public class UpdateUserUseCase {
             throw new RegraNegocioException("Email já cadastrado: " + userUpdates.getEmail());
         }
 
-        existingUser.setNome(userUpdates.getNome());
+        existingUser.setName(userUpdates.getName());
         existingUser.setEmail(userUpdates.getEmail());
-        existingUser.setTipoUsuario(userUpdates.getTipoUsuario());
-        existingUser.setEnderecoRua(userUpdates.getEnderecoRua());
-        existingUser.setEnderecoNumero(userUpdates.getEnderecoNumero());
-        existingUser.setEnderecoCidade(userUpdates.getEnderecoCidade());
-        existingUser.setEnderecoCep(userUpdates.getEnderecoCep());
+        existingUser.setUserType(userUpdates.getUserType());
+        existingUser.setStreetAddress(userUpdates.getStreetAddress());
+        existingUser.setNumberAddress(userUpdates.getNumberAddress());
+        existingUser.setCityAddress(userUpdates.getCityAddress());
+        existingUser.setCepAddress(userUpdates.getCepAddress());
 
         return userGateway.save(existingUser);
 
