@@ -1,54 +1,53 @@
-package com.fiap.techchallenge.infrastructure.persistence.entity;
+package com.fiap.techchallenge.application.dto;
 
 import com.fiap.techchallenge.domain.enums.UserType;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+public class UserRequestDTO {
 
-@Entity
-@Table(name = "tb_usuarios")
-public class UserEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long id;
-
-    @Column(name = "nm_usuario")
+    @NotBlank(message = "Nome é obrigatório")
+    @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres")
     private String name;
-    @Column(name = "ds_email")
+
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ser válido")
+    @Size(max = 100, message = "Email deve ter no máximo 100 caracteres")
     private String email;
-    @Column(name = "ds_login")
+
+    @NotBlank(message = "Login é obrigatório")
+    @Size(min = 3, max = 50, message = "Login deve ter entre 3 e 50 caracteres")
     private String login;
-    @Column(name = "ds_senha")
+
+    @NotBlank(message = "Senha é obrigatória")
+    @Size(min = 6, max = 255, message = "Senha deve ter entre 6 e 255 caracteres")
     private String password;
-    @Column(name = "nr_cpf")
+
+    @NotBlank(message = "CPF é obrigatório")
+    @Size(min = 11, max = 11, message = "CPF deve ter 11 dígitos")
     private String cpf;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tp_usuario")
+    @NotNull(message = "Tipo de usuário é obrigatório")
     private UserType userType;
 
-    @Column(name = "ds_endereco_rua")
     private String streetAddress;
-    @Column(name = "nr_endereco_numero")
+
     private Integer numberAddress;
-    @Column(name = "ds_endereco_cidade")
+
+    @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")
     private String cityAddress;
-    @Column(name = "nr_endereco_cep")
+
+    @Size(min = 8, max = 8, message = "CEP deve ter 8 dígitos")
     private String cepAddress;
 
-    @Column(name = "dt_criacao", insertable = false, updatable = false)
-    private LocalDateTime createdAt;
-    @Column(name = "dt_atualizacao", insertable = false, updatable = false)
-    private LocalDateTime updatedAt;
-
-
-    public UserEntity() {
+    public UserRequestDTO() {
     }
 
-    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    public UserRequestDTO(String name, String email, String login, String password, String cpf,
+                          UserType userType, String streetAddress, Integer numberAddress,
+                          String cityAddress, String cepAddress) {
         this.name = name;
         this.email = email;
         this.login = login;
@@ -59,16 +58,6 @@ public class UserEntity {
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
         this.cepAddress = cepAddress;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -149,13 +138,5 @@ public class UserEntity {
 
     public void setCepAddress(String cepAddress) {
         this.cepAddress = cepAddress;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
     }
 }

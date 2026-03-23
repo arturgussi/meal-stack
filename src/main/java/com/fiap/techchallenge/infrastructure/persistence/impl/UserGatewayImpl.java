@@ -2,7 +2,7 @@ package com.fiap.techchallenge.infrastructure.persistence.impl;
 
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 import com.fiap.techchallenge.infrastructure.persistence.entity.UserEntity;
 import com.fiap.techchallenge.infrastructure.persistence.repository.UserRepositoryJPA;
 import org.springframework.stereotype.Component;
@@ -115,7 +115,7 @@ public class UserGatewayImpl implements UserGateway {
      * @return Lista de usuários do tipo especificado
      */
     @Override
-    public List<User> findByUserType(TipoUsuario userType) {
+    public List<User> findByUserType(UserType userType) {
         List<User> users = new ArrayList<>();
         for (UserEntity userEntity : repository.findByUserType(userType)) {
             users.add(toDomain(userEntity));

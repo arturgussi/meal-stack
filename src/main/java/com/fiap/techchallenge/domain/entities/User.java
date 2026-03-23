@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.domain.entities;
 
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +15,7 @@ public class User {
     private String login;
     private String password;
     private String cpf;
-    private TipoUsuario userType;
+    private UserType userType;
     private String streetAddress;
     private Integer numberAddress;
     private String cityAddress;
@@ -27,7 +27,25 @@ public class User {
     }
 
     public User(Long id, String name, String email, String login, String password, String cpf,
-                TipoUsuario userType, String streetAddress, Integer numberAddress,
+                UserType userType, String streetAddress, Integer numberAddress,
+                String cityAddress, String cepAddress) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.cpf = cpf;
+        this.userType = userType;
+        this.streetAddress = streetAddress;
+        this.numberAddress = numberAddress;
+        this.cityAddress = cityAddress;
+        this.cepAddress = cepAddress;
+        this.createdAt = null;
+        this.updatedAt = null;
+    }
+
+    public User(Long id, String name, String email, String login, String password, String cpf,
+                UserType userType, String streetAddress, Integer numberAddress,
                 String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
@@ -92,11 +110,11 @@ public class User {
         this.cpf = cpf;
     }
 
-    public TipoUsuario getUserType() {
+    public UserType getUserType() {
         return userType;
     }
 
-    public void setUserType(TipoUsuario userType) {
+    public void setUserType(UserType userType) {
         this.userType = userType;
     }
 
@@ -150,15 +168,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "User{" +
                 "id=" + id +
-                ", nome='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", tipoUsuario=" + userType +
-                ", dataCriacao=" + createdAt +
-                ", dataAtualizacao=" + updatedAt +
+                ", userType=" + userType +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }
