@@ -2,14 +2,14 @@ package com.fiap.techchallenge.application.service.impl;
 
 import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
 import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UsuarioRequestDTO;
-import com.fiap.techchallenge.application.dto.UsuarioResponseDTO;
+import com.fiap.techchallenge.application.dto.UserRequestDTO;
+import com.fiap.techchallenge.application.dto.UserResponseDTO;
 import com.fiap.techchallenge.application.service.UsuarioService;
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.repositories.UsuarioRepository;
-import com.fiap.techchallenge.infrastructure.exception.RecursoNaoEncontradoException;
-import com.fiap.techchallenge.infrastructure.exception.RegraNegocioException;
-import com.fiap.techchallenge.infrastructure.exception.SenhaInvalidaException;
+import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
+import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
+import com.fiap.techchallenge.infrastructure.exception.InvalidPasswordException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,17 +27,17 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponseDTO criar(UsuarioRequestDTO dto) {
+    public UserResponseDTO criar(UserRequestDTO dto) {
         if (usuarioRepository.existsByEmail(dto.getEmail())) {
-            throw new RegraNegocioException("Email já cadastrado: " + dto.getEmail());
+            throw new BusinessRuleException("Email já cadastrado: " + dto.getEmail());
         }
 
         if (usuarioRepository.existsByLogin(dto.getLogin())) {
-            throw new RegraNegocioException("Login já cadastrado: " + dto.getLogin());
+            throw new BusinessRuleException("Login já cadastrado: " + dto.getLogin());
         }
 
         if (usuarioRepository.existsByCpf(dto.getCpf())) {
-            throw new RegraNegocioException("CPF já cadastrado: " + dto.getCpf());
+            throw new BusinessRuleException("CPF já cadastrado: " + dto.getCpf());
         }
 
         User user = toEntity(dto);
@@ -49,9 +49,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public UsuarioResponseDTO buscarPorId(Long id) {
+    public UserResponseDTO buscarPorId(Long id) {
         User user = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Usuário não encontrado com ID: " + id));
 
         return toResponseDTO(user);
@@ -59,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UsuarioResponseDTO> buscarPorNome(String nome) {
+    public List<UserResponseDTO> buscarPorNome(String nome) {
         List<User> users = usuarioRepository.findByNomeContainingIgnoreCase(nome);
         return users.stream()
                 .map(this::toResponseDTO)
@@ -68,7 +68,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UsuarioResponseDTO> listarTodos() {
+    public List<UserResponseDTO> listarTodos() {
         List<User> users = usuarioRepository.findAll();
         return users.stream()
                 .map(this::toResponseDTO)
@@ -76,14 +76,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
+    public UserResponseDTO atualizar(Long id, UserRequestDTO dto) {
         User user = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Usuário não encontrado com ID: " + id));
 
         if (!user.getEmail().equals(dto.getEmail()) &&
                 usuarioRepository.existsByEmail(dto.getEmail())) {
-            throw new RegraNegocioException("Email já cadastrado: " + dto.getEmail());
+            throw new BusinessRuleException("Email já cadastrado: " + dto.getEmail());
         }
 
         user.setName(dto.getNome());
@@ -101,11 +101,11 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void alterarSenha(Long id, AlterarSenhaDTO dto) {
         User user = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RecursoNaoEncontradoException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "Usuário não encontrado com ID: " + id));
 
         if (!user.getPassword().equals(dto.getSenhaAtual())) {
-            throw new SenhaInvalidaException("Senha atual incorreta");
+            throw new InvalidPasswordException("Senha atual incorreta");
         }
 
         user.setPassword(dto.getNovaSenha());
@@ -114,12 +114,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional(readOnly = true)
-    public UsuarioResponseDTO validarLogin(LoginDTO dto) {
+    public UserResponseDTO validarLogin(LoginDTO dto) {
         User user = usuarioRepository.findByLogin(dto.getLogin())
-                .orElseThrow(() -> new SenhaInvalidaException("Credenciais inválidas"));
+                .orElseThrow(() -> new InvalidPasswordException("Credenciais inválidas"));
 
         if (!user.getPassword().equals(dto.getSenha())) {
-            throw new SenhaInvalidaException("Credenciais inválidas");
+            throw new InvalidPasswordException("Credenciais inválidas");
         }
 
         return toResponseDTO(user);
@@ -128,14 +128,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void excluir(Long id) {
         if (!usuarioRepository.existsById(id)) {
-            throw new RecursoNaoEncontradoException(
+            throw new ResourceNotFoundException(
                     "Usuário não encontrado com ID: " + id);
         }
 
         usuarioRepository.deleteById(id);
     }
 
-    private User toEntity(UsuarioRequestDTO dto) {
+    private User toEntity(UserRequestDTO dto) {
         return new User(
                 dto.getNome(),
                 dto.getEmail(),
@@ -149,8 +149,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 dto.getEnderecoCep());
     }
 
-    private UsuarioResponseDTO toResponseDTO(User entity) {
-        return new UsuarioResponseDTO(
+    private UserResponseDTO toResponseDTO(User entity) {
+        return new UserResponseDTO(
                 entity.getId(),
                 entity.getName(),
                 entity.getEmail(),

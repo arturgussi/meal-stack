@@ -1,66 +1,43 @@
-package com.fiap.techchallenge.infrastructure.persistence.entity;
+package com.fiap.techchallenge.application.dto;
 
 import com.fiap.techchallenge.domain.enums.UserType;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tb_usuarios")
-public class UserEntity {
+public class UserResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
     private Long id;
-
-    @Column(name = "nm_usuario")
     private String name;
-    @Column(name = "ds_email")
     private String email;
-    @Column(name = "ds_login")
     private String login;
-    @Column(name = "ds_senha")
-    private String password;
-    @Column(name = "nr_cpf")
     private String cpf;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tp_usuario")
     private UserType userType;
-
-    @Column(name = "ds_endereco_rua")
     private String streetAddress;
-    @Column(name = "nr_endereco_numero")
     private Integer numberAddress;
-    @Column(name = "ds_endereco_cidade")
     private String cityAddress;
-    @Column(name = "nr_endereco_cep")
     private String cepAddress;
-
-    @Column(name = "dt_criacao", insertable = false, updatable = false)
     private LocalDateTime createdAt;
-    @Column(name = "dt_atualizacao", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-
-    public UserEntity() {
+    public UserResponseDTO() {
     }
 
-    public UserEntity(Long id, String name, String email, String login, String senha, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public UserResponseDTO(Long id, String name, String email, String login, String cpf,
+                           UserType userType, String streetAddress, Integer numberAddress,
+                           String cityAddress, String cepAddress,
+                           LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
-        this.password = senha;
         this.cpf = cpf;
         this.userType = userType;
         this.streetAddress = streetAddress;
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
         this.cepAddress = cepAddress;
-        this.createdAt = dataCriacao;
-        this.updatedAt = dataAtualizacao;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {
@@ -95,14 +72,6 @@ public class UserEntity {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -127,11 +96,11 @@ public class UserEntity {
         this.streetAddress = streetAddress;
     }
 
-    public Integer getNumberAddress() {
+    public String getNumberAddress() {
         return numberAddress;
     }
 
-    public void setNumberAddress(Integer numberAddress) {
+    public void setNumberAddress(String numberAddress) {
         this.numberAddress = numberAddress;
     }
 
@@ -155,7 +124,15 @@ public class UserEntity {
         return createdAt;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

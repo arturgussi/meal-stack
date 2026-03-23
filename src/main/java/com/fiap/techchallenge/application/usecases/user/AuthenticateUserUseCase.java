@@ -2,7 +2,7 @@ package com.fiap.techchallenge.application.usecases.user;
 
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.infrastructure.exception.SenhaInvalidaException;
+import com.fiap.techchallenge.infrastructure.exception.InvalidPasswordException;
 
 public class AuthenticateUserUseCase {
 
@@ -13,11 +13,11 @@ public class AuthenticateUserUseCase {
     }
 
     public User execute(String login, String password) {
-        User existingUser = userGateway.findByLogin(login).orElseThrow(() -> new SenhaInvalidaException(
+        User existingUser = userGateway.findByLogin(login).orElseThrow(() -> new InvalidPasswordException(
                 "Credenciais inválidas"));
 
         if (!existingUser.getPassword().equals(password)) {
-            throw new SenhaInvalidaException("Credenciais inválidas");
+            throw new InvalidPasswordException("Credenciais inválidas");
         }
 
         return existingUser;

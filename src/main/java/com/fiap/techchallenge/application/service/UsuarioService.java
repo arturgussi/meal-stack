@@ -2,8 +2,8 @@ package com.fiap.techchallenge.application.service;
 
 import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
 import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UsuarioRequestDTO;
-import com.fiap.techchallenge.application.dto.UsuarioResponseDTO;
+import com.fiap.techchallenge.application.dto.UserRequestDTO;
+import com.fiap.techchallenge.application.dto.UserResponseDTO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface UsuarioService {
      * @return Usuário criado
      * @throws RegraNegocioException se email já estiver cadastrado
      */
-    UsuarioResponseDTO criar(UsuarioRequestDTO dto);
+    UserResponseDTO criar(UserRequestDTO dto);
 
     /**
      * Busca um usuário por ID.
@@ -26,7 +26,7 @@ public interface UsuarioService {
      * @return Usuário encontrado
      * @throws RecursoNaoEncontradoException se não encontrar
      */
-    UsuarioResponseDTO buscarPorId(Long id);
+    UserResponseDTO buscarPorId(Long id);
 
     /**
      * Busca usuários por nome (busca parcial).
@@ -34,14 +34,14 @@ public interface UsuarioService {
      * @param nome Nome ou parte dele
      * @return Lista de usuários encontrados
      */
-    List<UsuarioResponseDTO> buscarPorNome(String nome);
+    List<UserResponseDTO> buscarPorNome(String nome);
 
     /**
      * Lista todos os usuários.
      *
      * @return Lista de todos os usuários
      */
-    List<UsuarioResponseDTO> listarTodos();
+    List<UserResponseDTO> listarTodos();
 
     /**
      * Atualiza dados cadastrais de um usuário (exceto senha).
@@ -54,7 +54,7 @@ public interface UsuarioService {
      * @throws RegraNegocioException         se tentar alterar email para um já
      *                                       existente
      */
-    UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto);
+    UserResponseDTO atualizar(Long id, UserRequestDTO dto);
 
     /**
      * Altera a senha de um usuário.
@@ -76,7 +76,7 @@ public interface UsuarioService {
      * @return Usuário autenticado
      * @throws SenhaInvalidaException se credenciais inválidas
      */
-    UsuarioResponseDTO validarLogin(LoginDTO dto);
+    UserResponseDTO validarLogin(LoginDTO dto);
 
     /**
      * Exclui um usuário.

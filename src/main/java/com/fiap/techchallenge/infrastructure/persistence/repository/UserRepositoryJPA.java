@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.infrastructure.persistence.repository;
 
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 import com.fiap.techchallenge.infrastructure.persistence.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,7 +18,7 @@ public interface UserRepositoryJPA extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findByNameContainingIgnoreCase(String nome);
 
-    List<UserEntity> findByUserType(TipoUsuario userType);
+    List<UserEntity> findByUserType(UserType userType);
 
     boolean existsByEmail(String email);
 

@@ -3,13 +3,13 @@ package com.fiap.techchallenge.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
 import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UsuarioRequestDTO;
-import com.fiap.techchallenge.application.dto.UsuarioResponseDTO;
+import com.fiap.techchallenge.application.dto.UserRequestDTO;
+import com.fiap.techchallenge.application.dto.UserResponseDTO;
 import com.fiap.techchallenge.application.service.UsuarioService;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
-import com.fiap.techchallenge.infrastructure.exception.RecursoNaoEncontradoException;
-import com.fiap.techchallenge.infrastructure.exception.RegraNegocioException;
-import com.fiap.techchallenge.infrastructure.exception.SenhaInvalidaException;
+import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
+import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
+import com.fiap.techchallenge.infrastructure.exception.InvalidPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(UsuarioController.class)
+@WebMvcTest(UserController.class)
 @DisplayName("Testes do UsuarioController")
 class UserControllerTest {
 
@@ -40,32 +40,32 @@ class UserControllerTest {
         @MockitoBean
         private UsuarioService usuarioService;
 
-        private UsuarioRequestDTO usuarioRequestDTO;
-        private UsuarioResponseDTO usuarioResponseDTO;
+        private UserRequestDTO usuarioRequestDTO;
+        private UserResponseDTO usuarioResponseDTO;
 
         @BeforeEach
         void setUp() {
-                usuarioRequestDTO = new UsuarioRequestDTO(
+                usuarioRequestDTO = new UserRequestDTO(
                                 "João Silva",
                                 "joao@email.com",
                                 "joao.silva",
                                 "senha123",
                                 "12345678901",
-                                TipoUsuario.CLIENTE,
+                                UserType.CLIENTE,
                                 "Rua A",
                                 "100",
                                 "São Paulo",
                                 "01234567");
 
-                usuarioResponseDTO = new UsuarioResponseDTO(
+                usuarioResponseDTO = new UserResponseDTO(
                                 1L,
                                 "João Silva",
                                 "joao@email.com",
                                 "joao.silva",
                                 "12345678901",
-                                TipoUsuario.CLIENTE,
+                                UserType.CLIENTE,
                                 "Rua A",
-                                "100",
+                                100,
                                 "São Paulo",
                                 "01234567",
                                 LocalDateTime.now(),
@@ -75,7 +75,7 @@ class UserControllerTest {
         @Test
         @DisplayName("POST /v1/usuarios - Deve criar usuário e retornar 201 Created")
         void criarUsuario_DeveRetornar201() throws Exception {
-                when(usuarioService.criar(any(UsuarioRequestDTO.class))).thenReturn(usuarioResponseDTO);
+                when(usuarioService.criar(any(UserRequestDTO.class))).thenReturn(usuarioResponseDTO);
 
                 mockMvc.perform(post("/v1/usuarios")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ class UserControllerTest {
         @DisplayName("POST /v1/usuarios - Deve retornar 400 Bad Request para dados inválidos")
         void criarUsuario_DadosInvalidos_DeveRetornar400() throws Exception {
                 // DTO com campos inválidos
-                UsuarioRequestDTO dtoInvalido = new UsuarioRequestDTO();
+                UserRequestDTO dtoInvalido = new UserRequestDTO();
                 dtoInvalido.setNome(""); // Nome vazio - inválido
                 dtoInvalido.setEmail("email-invalido"); // Email inválido
 
@@ -107,8 +107,8 @@ class UserControllerTest {
         @Test
         @DisplayName("POST /v1/usuarios - Deve retornar 422 para email duplicado")
         void criarUsuario_EmailDuplicado_DeveRetornar422() throws Exception {
-                when(usuarioService.criar(any(UsuarioRequestDTO.class)))
-                                .thenThrow(new RegraNegocioException("Email já cadastrado: joao@email.com"));
+                when(usuarioService.criar(any(UserRequestDTO.class)))
+                                .thenThrow(new BusinessRuleException("Email já cadastrado: joao@email.com"));
 
                 mockMvc.perform(post("/v1/usuarios")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -134,7 +134,7 @@ class UserControllerTest {
         @DisplayName("GET /v1/usuarios/{id} - Deve retornar 404 para ID inexistente")
         void buscarPorId_IdInexistente_DeveRetornar404() throws Exception {
                 when(usuarioService.buscarPorId(999L))
-                                .thenThrow(new RecursoNaoEncontradoException("Usuário não encontrado com ID: 999"));
+                                .thenThrow(new ResourceNotFoundException("Usuário não encontrado com ID: 999"));
 
                 mockMvc.perform(get("/v1/usuarios/999"))
                                 .andExpect(status().isNotFound())
@@ -146,7 +146,7 @@ class UserControllerTest {
         @Test
         @DisplayName("PUT /v1/usuarios/{id} - Deve atualizar usuário e retornar 200")
         void atualizarUsuario_DeveRetornar200() throws Exception {
-                when(usuarioService.atualizar(eq(1L), any(UsuarioRequestDTO.class)))
+                when(usuarioService.atualizar(eq(1L), any(UserRequestDTO.class)))
                                 .thenReturn(usuarioResponseDTO);
 
                 mockMvc.perform(put("/v1/usuarios/1")
@@ -172,7 +172,7 @@ class UserControllerTest {
         @DisplayName("PATCH /v1/usuarios/{id}/senha - Deve retornar 401 para senha atual incorreta")
         void alterarSenha_SenhaIncorreta_DeveRetornar401() throws Exception {
                 AlterarSenhaDTO alterarSenhaDTO = new AlterarSenhaDTO("senhaErrada", "novaSenha456");
-                doThrow(new SenhaInvalidaException("Senha atual incorreta"))
+                doThrow(new InvalidPasswordException("Senha atual incorreta"))
                                 .when(usuarioService).alterarSenha(eq(1L), any(AlterarSenhaDTO.class));
 
                 mockMvc.perform(patch("/v1/usuarios/1/senha")
@@ -203,7 +203,7 @@ class UserControllerTest {
         void validarLogin_CredenciaisInvalidas_DeveRetornar401() throws Exception {
                 LoginDTO loginDTO = new LoginDTO("joao.silva", "senhaErrada");
                 when(usuarioService.validarLogin(any(LoginDTO.class)))
-                                .thenThrow(new SenhaInvalidaException("Credenciais inválidas"));
+                                .thenThrow(new InvalidPasswordException("Credenciais inválidas"));
 
                 mockMvc.perform(post("/v1/usuarios/login")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -223,7 +223,7 @@ class UserControllerTest {
         @Test
         @DisplayName("DELETE /v1/usuarios/{id} - Deve retornar 404 para ID inexistente")
         void excluirUsuario_IdInexistente_DeveRetornar404() throws Exception {
-                doThrow(new RecursoNaoEncontradoException("Usuário não encontrado com ID: 999"))
+                doThrow(new ResourceNotFoundException("Usuário não encontrado com ID: 999"))
                                 .when(usuarioService).excluir(999L);
 
                 mockMvc.perform(delete("/v1/usuarios/999"))

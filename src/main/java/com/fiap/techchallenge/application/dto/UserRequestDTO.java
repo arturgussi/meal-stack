@@ -1,12 +1,12 @@
 package com.fiap.techchallenge.application.dto;
 
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class UsuarioRequestDTO {
+public class UserRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres")
@@ -30,13 +30,13 @@ public class UsuarioRequestDTO {
     private String cpf;
 
     @NotNull(message = "Tipo de usuário é obrigatório")
-    private TipoUsuario tipoUsuario;
+    private UserType tipoUsuario;
 
     @Size(max = 200, message = "Endereço (rua) deve ter no máximo 200 caracteres")
     private String enderecoRua;
 
     @Size(max = 10, message = "Número do endereço deve ter no máximo 10 caracteres")
-    private String enderecoNumero;
+    private Integer enderecoNumero;
 
     @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")
     private String enderecoCidade;
@@ -44,12 +44,12 @@ public class UsuarioRequestDTO {
     @Size(min = 8, max = 8, message = "CEP deve ter 8 dígitos")
     private String enderecoCep;
 
-    public UsuarioRequestDTO() {
+    public UserRequestDTO() {
     }
 
-    public UsuarioRequestDTO(String nome, String email, String login, String senha, String cpf,
-            TipoUsuario tipoUsuario, String enderecoRua, String enderecoNumero,
-            String enderecoCidade, String enderecoCep) {
+    public UserRequestDTO(String nome, String email, String login, String senha, String cpf,
+                          UserType tipoUsuario, String enderecoRua, Integer enderecoNumero,
+                          String enderecoCidade, String enderecoCep) {
         this.nome = nome;
         this.email = email;
         this.login = login;
@@ -102,11 +102,11 @@ public class UsuarioRequestDTO {
         this.cpf = cpf;
     }
 
-    public TipoUsuario getTipoUsuario() {
+    public UserType getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+    public void setTipoUsuario(UserType tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
@@ -118,11 +118,11 @@ public class UsuarioRequestDTO {
         this.enderecoRua = enderecoRua;
     }
 
-    public String getEnderecoNumero() {
+    public Integer getEnderecoNumero() {
         return enderecoNumero;
     }
 
-    public void setEnderecoNumero(String enderecoNumero) {
+    public void setEnderecoNumero(Integer enderecoNumero) {
         this.enderecoNumero = enderecoNumero;
     }
 

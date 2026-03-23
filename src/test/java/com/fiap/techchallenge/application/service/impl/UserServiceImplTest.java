@@ -2,14 +2,14 @@ package com.fiap.techchallenge.application.service.impl;
 
 import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
 import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UsuarioRequestDTO;
-import com.fiap.techchallenge.application.dto.UsuarioResponseDTO;
+import com.fiap.techchallenge.application.dto.UserRequestDTO;
+import com.fiap.techchallenge.application.dto.UserResponseDTO;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 import com.fiap.techchallenge.domain.repositories.UsuarioRepository;
-import com.fiap.techchallenge.infrastructure.exception.RecursoNaoEncontradoException;
-import com.fiap.techchallenge.infrastructure.exception.RegraNegocioException;
-import com.fiap.techchallenge.infrastructure.exception.SenhaInvalidaException;
+import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
+import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
+import com.fiap.techchallenge.infrastructure.exception.InvalidPasswordException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,18 +37,18 @@ class UserServiceImplTest {
     @InjectMocks
     private UsuarioServiceImpl usuarioService;
 
-    private UsuarioRequestDTO usuarioRequestDTO;
+    private UserRequestDTO usuarioRequestDTO;
     private User user;
 
     @BeforeEach
     void setUp() {
-        usuarioRequestDTO = new UsuarioRequestDTO(
+        usuarioRequestDTO = new UserRequestDTO(
                 "João Silva",
                 "joao@email.com",
                 "joao.silva",
                 "senha123",
                 "12345678901",
-                TipoUsuario.CLIENTE,
+                UserType.CLIENTE,
                 "Rua A",
                 "100",
                 "São Paulo",
@@ -60,7 +60,7 @@ class UserServiceImplTest {
                 "joao.silva",
                 "senha123",
                 "12345678901",
-                TipoUsuario.CLIENTE,
+                UserType.CLIENTE,
                 "Rua A",
                 "100",
                 "São Paulo",
@@ -76,13 +76,13 @@ class UserServiceImplTest {
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(false);
         when(usuarioRepository.save(any(User.class))).thenReturn(user);
 
-        UsuarioResponseDTO resultado = usuarioService.criar(usuarioRequestDTO);
+        UserResponseDTO resultado = usuarioService.criar(usuarioRequestDTO);
 
         assertNotNull(resultado);
-        assertEquals("João Silva", resultado.getNome());
+        assertEquals("João Silva", resultado.getName());
         assertEquals("joao@email.com", resultado.getEmail());
         assertEquals("joao.silva", resultado.getLogin());
-        assertEquals(TipoUsuario.CLIENTE, resultado.getTipoUsuario());
+        assertEquals(UserType.CLIENTE, resultado.getUserType());
 
         // Verificar que a senha NÃO está no DTO de resposta
         // (UsuarioResponseDTO não tem campo senha)
@@ -99,8 +99,8 @@ class UserServiceImplTest {
     void criarUsuario_ComEmailDuplicado() {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(true);
 
-        RegraNegocioException exception = assertThrows(
-                RegraNegocioException.class,
+        BusinessRuleException exception = assertThrows(
+                BusinessRuleException.class,
                 () -> usuarioService.criar(usuarioRequestDTO));
 
         assertEquals("Email já cadastrado: joao@email.com", exception.getMessage());
@@ -115,8 +115,8 @@ class UserServiceImplTest {
         Long idInexistente = 999L;
         when(usuarioRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
-        RecursoNaoEncontradoException exception = assertThrows(
-                RecursoNaoEncontradoException.class,
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
                 () -> usuarioService.buscarPorId(idInexistente));
 
         assertEquals("Usuário não encontrado com ID: 999", exception.getMessage());
@@ -129,8 +129,8 @@ class UserServiceImplTest {
         AlterarSenhaDTO alterarSenhaDTO = new AlterarSenhaDTO("senhaErrada", "novaSenha123");
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        SenhaInvalidaException exception = assertThrows(
-                SenhaInvalidaException.class,
+        InvalidPasswordException exception = assertThrows(
+                InvalidPasswordException.class,
                 () -> usuarioService.alterarSenha(1L, alterarSenhaDTO));
 
         assertEquals("Senha atual incorreta", exception.getMessage());
@@ -144,11 +144,11 @@ class UserServiceImplTest {
     void buscarPorId_ComSucesso() {
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        UsuarioResponseDTO resultado = usuarioService.buscarPorId(1L);
+        UserResponseDTO resultado = usuarioService.buscarPorId(1L);
 
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
-        assertEquals("João Silva", resultado.getNome());
+        assertEquals("João Silva", resultado.getName());
         verify(usuarioRepository, times(1)).findById(1L);
     }
 
@@ -158,11 +158,11 @@ class UserServiceImplTest {
         List<User> users = Arrays.asList(user);
         when(usuarioRepository.findByNomeContainingIgnoreCase("Silva")).thenReturn(users);
 
-        List<UsuarioResponseDTO> resultado = usuarioService.buscarPorNome("Silva");
+        List<UserResponseDTO> resultado = usuarioService.buscarPorNome("Silva");
 
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
-        assertEquals("João Silva", resultado.get(0).getNome());
+        assertEquals("João Silva", resultado.get(0).getName());
         verify(usuarioRepository, times(1)).findByNomeContainingIgnoreCase("Silva");
     }
 
@@ -172,7 +172,7 @@ class UserServiceImplTest {
         List<User> users = Arrays.asList(user);
         when(usuarioRepository.findAll()).thenReturn(users);
 
-        List<UsuarioResponseDTO> resultado = usuarioService.listarTodos();
+        List<UserResponseDTO> resultado = usuarioService.listarTodos();
 
         assertNotNull(resultado);
         assertEquals(1, resultado.size());
@@ -182,13 +182,13 @@ class UserServiceImplTest {
     @Test
     @DisplayName("Deve atualizar usuário com sucesso")
     void atualizar_ComSucesso() {
-        UsuarioRequestDTO dtoAtualizado = new UsuarioRequestDTO(
+        UserRequestDTO dtoAtualizado = new UserRequestDTO(
                 "João Silva Atualizado",
                 "joao@email.com", // Mesmo email
                 "joao.silva",
                 "senha123",
                 "12345678901",
-                TipoUsuario.CLIENTE,
+                UserType.CLIENTE,
                 "Rua B",
                 "200",
                 "Rio de Janeiro",
@@ -197,7 +197,7 @@ class UserServiceImplTest {
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
         when(usuarioRepository.save(any(User.class))).thenReturn(user);
 
-        UsuarioResponseDTO resultado = usuarioService.atualizar(1L, dtoAtualizado);
+        UserResponseDTO resultado = usuarioService.atualizar(1L, dtoAtualizado);
 
         assertNotNull(resultado);
         verify(usuarioRepository, times(1)).findById(1L);
@@ -207,13 +207,13 @@ class UserServiceImplTest {
     @Test
     @DisplayName("Deve lançar exceção ao atualizar com email já existente")
     void atualizar_ComEmailDuplicado() {
-        UsuarioRequestDTO dtoAtualizado = new UsuarioRequestDTO(
+        UserRequestDTO dtoAtualizado = new UserRequestDTO(
                 "João Silva",
                 "outro@email.com", // Email diferente
                 "joao.silva",
                 "senha123",
                 "12345678901",
-                TipoUsuario.CLIENTE,
+                UserType.CLIENTE,
                 "Rua A",
                 "100",
                 "São Paulo",
@@ -222,8 +222,8 @@ class UserServiceImplTest {
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(user));
         when(usuarioRepository.existsByEmail("outro@email.com")).thenReturn(true);
 
-        RegraNegocioException exception = assertThrows(
-                RegraNegocioException.class,
+        BusinessRuleException exception = assertThrows(
+                BusinessRuleException.class,
                 () -> usuarioService.atualizar(1L, dtoAtualizado));
 
         assertEquals("Email já cadastrado: outro@email.com", exception.getMessage());
@@ -249,10 +249,10 @@ class UserServiceImplTest {
         LoginDTO loginDTO = new LoginDTO("joao.silva", "senha123");
         when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(user));
 
-        UsuarioResponseDTO resultado = usuarioService.validarLogin(loginDTO);
+        UserResponseDTO resultado = usuarioService.validarLogin(loginDTO);
 
         assertNotNull(resultado);
-        assertEquals("João Silva", resultado.getNome());
+        assertEquals("João Silva", resultado.getName());
         verify(usuarioRepository, times(1)).findByLogin("joao.silva");
     }
 
@@ -262,8 +262,8 @@ class UserServiceImplTest {
         LoginDTO loginDTO = new LoginDTO("joao.silva", "senhaErrada");
         when(usuarioRepository.findByLogin("joao.silva")).thenReturn(Optional.of(user));
 
-        SenhaInvalidaException exception = assertThrows(
-                SenhaInvalidaException.class,
+        InvalidPasswordException exception = assertThrows(
+                InvalidPasswordException.class,
                 () -> usuarioService.validarLogin(loginDTO));
 
         assertEquals("Credenciais inválidas", exception.getMessage());
@@ -275,8 +275,8 @@ class UserServiceImplTest {
         LoginDTO loginDTO = new LoginDTO("inexistente", "senha123");
         when(usuarioRepository.findByLogin("inexistente")).thenReturn(Optional.empty());
 
-        SenhaInvalidaException exception = assertThrows(
-                SenhaInvalidaException.class,
+        InvalidPasswordException exception = assertThrows(
+                InvalidPasswordException.class,
                 () -> usuarioService.validarLogin(loginDTO));
 
         assertEquals("Credenciais inválidas", exception.getMessage());
@@ -299,8 +299,8 @@ class UserServiceImplTest {
     void excluir_UsuarioInexistente() {
         when(usuarioRepository.existsById(999L)).thenReturn(false);
 
-        RecursoNaoEncontradoException exception = assertThrows(
-                RecursoNaoEncontradoException.class,
+        ResourceNotFoundException exception = assertThrows(
+                ResourceNotFoundException.class,
                 () -> usuarioService.excluir(999L));
 
         assertEquals("Usuário não encontrado com ID: 999", exception.getMessage());
@@ -313,8 +313,8 @@ class UserServiceImplTest {
         when(usuarioRepository.existsByEmail(anyString())).thenReturn(false);
         when(usuarioRepository.existsByLogin(anyString())).thenReturn(true);
 
-        RegraNegocioException exception = assertThrows(
-                RegraNegocioException.class,
+        BusinessRuleException exception = assertThrows(
+                BusinessRuleException.class,
                 () -> usuarioService.criar(usuarioRequestDTO));
 
         assertEquals("Login já cadastrado: joao.silva", exception.getMessage());
@@ -328,8 +328,8 @@ class UserServiceImplTest {
         when(usuarioRepository.existsByLogin(anyString())).thenReturn(false);
         when(usuarioRepository.existsByCpf(anyString())).thenReturn(true);
 
-        RegraNegocioException exception = assertThrows(
-                RegraNegocioException.class,
+        BusinessRuleException exception = assertThrows(
+                BusinessRuleException.class,
                 () -> usuarioService.criar(usuarioRequestDTO));
 
         assertEquals("CPF já cadastrado: 12345678901", exception.getMessage());

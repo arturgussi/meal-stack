@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.application.gateways.user;
 
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +69,7 @@ public interface UserGateway {
      * @param tipoUsuario Tipo do usuário
      * @return Lista de usuários do tipo especificado
      */
-    List<User> findByUserType(TipoUsuario tipoUsuario);
+    List<User> findByUserType(UserType tipoUsuario);
 
     /**
      * Verifica se existe um usuário com o email especificado.

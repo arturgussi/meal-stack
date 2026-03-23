@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.domain.repositories;
 
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +69,7 @@ public interface UsuarioRepository {
      * @param tipoUsuario Tipo do usuário
      * @return Lista de usuários do tipo especificado
      */
-    List<User> findByTipoUsuario(TipoUsuario tipoUsuario);
+    List<User> findByTipoUsuario(UserType tipoUsuario);
 
     /**
      * Verifica se existe um usuário com o email especificado.

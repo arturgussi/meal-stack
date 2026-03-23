@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.infrastructure.persistence;
 
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.enums.UserType;
 import com.fiap.techchallenge.domain.repositories.UsuarioRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -141,7 +141,7 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
     }
 
     @Override
-    public List<User> findByTipoUsuario(TipoUsuario tipoUsuario) {
+    public List<User> findByTipoUsuario(UserType tipoUsuario) {
         String sql = "SELECT * FROM tb_usuarios WHERE tp_usuario = ?";
         return jdbcTemplate.query(sql, rowMapper, tipoUsuario.name());
     }
@@ -190,9 +190,9 @@ public class UsuarioRepositoryJdbc implements UsuarioRepository {
             user.setLogin(rs.getString("ds_login"));
             user.setSenha(rs.getString("ds_senha"));
             user.setCpf(rs.getString("nr_cpf"));
-            user.setTipoUsuario(TipoUsuario.valueOf(rs.getString("tp_usuario")));
+            user.setTipoUsuario(UserType.valueOf(rs.getString("tp_usuario")));
             user.setEnderecoRua(rs.getString("ds_endereco_rua"));
-            user.setEnderecoNumero(rs.getString("nr_endereco_numero"));
+            user.setEnderecoNumero(rs.getInteger("nr_endereco_numero"));
             user.setEnderecoCidade(rs.getString("ds_endereco_cidade"));
             user.setEnderecoCep(rs.getString("nr_endereco_cep"));
 
