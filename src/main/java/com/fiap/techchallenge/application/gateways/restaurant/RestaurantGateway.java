@@ -44,4 +44,12 @@ public interface RestaurantGateway {
      * @return true se existir, false caso contrário
      */
     boolean existsByName(String name);
+
+    /**
+     * Verifica se existe um restaurante com o ID especificado.
+     *
+     * @param id ID a verificar
+     * @return true se existir, false caso contrário
+     */
+    boolean existsById(Long id);
 }
