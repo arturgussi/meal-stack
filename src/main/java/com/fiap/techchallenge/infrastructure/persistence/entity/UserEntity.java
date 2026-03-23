@@ -1,52 +1,53 @@
-package com.fiap.techchallenge.domain.entities;
+package com.fiap.techchallenge.infrastructure.persistence.entity;
 
 import com.fiap.techchallenge.domain.enums.UserType;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-/**
- * Entidade que representa um usuário no sistema.
- */
-public class User {
+@Entity
+@Table(name = "tb_usuarios")
+public class UserEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario")
     private Long id;
+
+    @Column(name = "nm_usuario")
     private String name;
+    @Column(name = "ds_email")
     private String email;
+    @Column(name = "ds_login")
     private String login;
+    @Column(name = "ds_senha")
     private String password;
+    @Column(name = "nr_cpf")
     private String cpf;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tp_usuario")
     private UserType userType;
+
+    @Column(name = "ds_endereco_rua")
     private String streetAddress;
+    @Column(name = "nr_endereco_numero")
     private Integer numberAddress;
+    @Column(name = "ds_endereco_cidade")
     private String cityAddress;
+    @Column(name = "nr_endereco_cep")
     private String cepAddress;
+
+    @Column(name = "dt_criacao", insertable = false, updatable = false)
     private LocalDateTime createdAt;
+    @Column(name = "dt_atualizacao", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-    public User() {
+
+    public UserEntity() {
     }
 
-    public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-        this.cpf = cpf;
-        this.userType = userType;
-        this.streetAddress = streetAddress;
-        this.numberAddress = numberAddress;
-        this.cityAddress = cityAddress;
-        this.cepAddress = cepAddress;
-        this.createdAt = null;
-        this.updatedAt = null;
-    }
-
-    public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -154,29 +155,7 @@ public class User {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", login='" + login + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", userType=" + userType +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }

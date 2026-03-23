@@ -1,12 +1,11 @@
 package com.fiap.techchallenge.application.usecases.user;
 
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
-import com.fiap.techchallenge.infrastructure.exception.RecursoNaoEncontradoException;
+import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
 
 public class DeleteUserUseCase {
 
     private final UserGateway userGateway;
-
 
     public DeleteUserUseCase(UserGateway userGateway) {
         this.userGateway = userGateway;
@@ -14,7 +13,7 @@ public class DeleteUserUseCase {
 
     public void execute(Long id) {
         if(!userGateway.existsById(id)) {
-            throw new RecursoNaoEncontradoException(
+            throw new ResourceNotFoundException(
                     "Usuário não encontrado com ID: " + id);
         }
 

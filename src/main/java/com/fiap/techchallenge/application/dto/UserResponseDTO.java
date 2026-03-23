@@ -1,19 +1,15 @@
-package com.fiap.techchallenge.domain.entities;
+package com.fiap.techchallenge.application.dto;
 
 import com.fiap.techchallenge.domain.enums.UserType;
 
 import java.time.LocalDateTime;
 
-/**
- * Entidade que representa um usuário no sistema.
- */
-public class User {
+public class UserResponseDTO {
 
     private Long id;
     private String name;
     private String email;
     private String login;
-    private String password;
     private String cpf;
     private UserType userType;
     private String streetAddress;
@@ -23,35 +19,17 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public User() {
+    public UserResponseDTO() {
     }
 
-    public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress) {
+    public UserResponseDTO(Long id, String name, String email, String login, String cpf,
+                           UserType userType, String streetAddress, Integer numberAddress,
+                           String cityAddress, String cepAddress,
+                           LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
-        this.password = password;
-        this.cpf = cpf;
-        this.userType = userType;
-        this.streetAddress = streetAddress;
-        this.numberAddress = numberAddress;
-        this.cityAddress = cityAddress;
-        this.cepAddress = cepAddress;
-        this.createdAt = null;
-        this.updatedAt = null;
-    }
-
-    public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.login = login;
-        this.password = password;
         this.cpf = cpf;
         this.userType = userType;
         this.streetAddress = streetAddress;
@@ -92,14 +70,6 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getCpf() {
@@ -164,19 +134,5 @@ public class User {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", login='" + login + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", userType=" + userType +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
     }
 }
