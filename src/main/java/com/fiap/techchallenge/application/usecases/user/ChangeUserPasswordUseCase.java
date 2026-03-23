@@ -22,8 +22,7 @@ public class ChangeUserPasswordUseCase {
         }
 
         existingUser.setPassword(newPassword);
-
-        return existingUser;
+        return userGateway.save(existingUser);
     }
 
 }

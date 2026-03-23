@@ -32,10 +32,8 @@ public class UserRequestDTO {
     @NotNull(message = "Tipo de usuário é obrigatório")
     private UserType userType;
 
-    @Size(max = 200, message = "Endereço (rua) deve ter no máximo 200 caracteres")
     private String streetAddress;
 
-    @Size(max = 10, message = "Número do endereço deve ter no máximo 10 caracteres")
     private Integer numberAddress;
 
     @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")

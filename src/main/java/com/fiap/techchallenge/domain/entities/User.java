@@ -28,6 +28,24 @@ public class User {
 
     public User(Long id, String name, String email, String login, String password, String cpf,
                 UserType userType, String streetAddress, Integer numberAddress,
+                String cityAddress, String cepAddress) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.login = login;
+        this.password = password;
+        this.cpf = cpf;
+        this.userType = userType;
+        this.streetAddress = streetAddress;
+        this.numberAddress = numberAddress;
+        this.cityAddress = cityAddress;
+        this.cepAddress = cepAddress;
+        this.createdAt = null;
+        this.updatedAt = null;
+    }
+
+    public User(Long id, String name, String email, String login, String password, String cpf,
+                UserType userType, String streetAddress, Integer numberAddress,
                 String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
