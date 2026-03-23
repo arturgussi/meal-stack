@@ -150,15 +150,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "User{" +
                 "id=" + id +
-                ", nome='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", tipoUsuario=" + userType +
-                ", dataCriacao=" + createdAt +
-                ", dataAtualizacao=" + updatedAt +
+                ", userType=" + userType +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

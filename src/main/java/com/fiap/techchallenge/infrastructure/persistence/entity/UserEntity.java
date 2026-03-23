@@ -47,20 +47,20 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String login, String senha, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
-        this.password = senha;
+        this.password = password;
         this.cpf = cpf;
         this.userType = userType;
         this.streetAddress = streetAddress;
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
         this.cepAddress = cepAddress;
-        this.createdAt = dataCriacao;
-        this.updatedAt = dataAtualizacao;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Long getId() {

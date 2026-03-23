@@ -159,16 +159,16 @@ public class UserController {
     private User toDomain(UserRequestDTO dto) {
         return new User(
                 null,
-                dto.getNome(),
+                dto.getName(),
                 dto.getEmail(),
                 dto.getLogin(),
-                dto.getSenha(),
+                dto.getPassword(),
                 dto.getCpf(),
-                dto.getTipoUsuario(),
-                dto.getEnderecoRua(),
-                dto.getEnderecoNumero(),
-                dto.getEnderecoCidade(),
-                dto.getEnderecoCep(),
+                dto.getUserType(),
+                dto.getStreetAddress(),
+                dto.getNumberAddress(),
+                dto.getCityAddress(),
+                dto.getCepAddress(),
                 null,
                 null
                 );

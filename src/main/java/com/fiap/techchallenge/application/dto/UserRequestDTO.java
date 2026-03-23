@@ -10,7 +10,7 @@ public class UserRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres")
-    private String nome;
+    private String name;
 
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email deve ser válido")
@@ -23,51 +23,51 @@ public class UserRequestDTO {
 
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 6, max = 255, message = "Senha deve ter entre 6 e 255 caracteres")
-    private String senha;
+    private String password;
 
     @NotBlank(message = "CPF é obrigatório")
     @Size(min = 11, max = 11, message = "CPF deve ter 11 dígitos")
     private String cpf;
 
     @NotNull(message = "Tipo de usuário é obrigatório")
-    private UserType tipoUsuario;
+    private UserType userType;
 
     @Size(max = 200, message = "Endereço (rua) deve ter no máximo 200 caracteres")
-    private String enderecoRua;
+    private String streetAddress;
 
     @Size(max = 10, message = "Número do endereço deve ter no máximo 10 caracteres")
-    private Integer enderecoNumero;
+    private Integer numberAddress;
 
     @Size(max = 100, message = "Cidade deve ter no máximo 100 caracteres")
-    private String enderecoCidade;
+    private String cityAddress;
 
     @Size(min = 8, max = 8, message = "CEP deve ter 8 dígitos")
-    private String enderecoCep;
+    private String cepAddress;
 
     public UserRequestDTO() {
     }
 
-    public UserRequestDTO(String nome, String email, String login, String senha, String cpf,
-                          UserType tipoUsuario, String enderecoRua, Integer enderecoNumero,
-                          String enderecoCidade, String enderecoCep) {
-        this.nome = nome;
+    public UserRequestDTO(String name, String email, String login, String password, String cpf,
+                          UserType userType, String streetAddress, Integer numberAddress,
+                          String cityAddress, String cepAddress) {
+        this.name = name;
         this.email = email;
         this.login = login;
-        this.senha = senha;
+        this.password = password;
         this.cpf = cpf;
-        this.tipoUsuario = tipoUsuario;
-        this.enderecoRua = enderecoRua;
-        this.enderecoNumero = enderecoNumero;
-        this.enderecoCidade = enderecoCidade;
-        this.enderecoCep = enderecoCep;
+        this.userType = userType;
+        this.streetAddress = streetAddress;
+        this.numberAddress = numberAddress;
+        this.cityAddress = cityAddress;
+        this.cepAddress = cepAddress;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -86,12 +86,12 @@ public class UserRequestDTO {
         this.login = login;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCpf() {
@@ -102,43 +102,43 @@ public class UserRequestDTO {
         this.cpf = cpf;
     }
 
-    public UserType getTipoUsuario() {
-        return tipoUsuario;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setTipoUsuario(UserType tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
-    public String getEnderecoRua() {
-        return enderecoRua;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setEnderecoRua(String enderecoRua) {
-        this.enderecoRua = enderecoRua;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
-    public Integer getEnderecoNumero() {
-        return enderecoNumero;
+    public Integer getNumberAddress() {
+        return numberAddress;
     }
 
-    public void setEnderecoNumero(Integer enderecoNumero) {
-        this.enderecoNumero = enderecoNumero;
+    public void setNumberAddress(Integer numberAddress) {
+        this.numberAddress = numberAddress;
     }
 
-    public String getEnderecoCidade() {
-        return enderecoCidade;
+    public String getCityAddress() {
+        return cityAddress;
     }
 
-    public void setEnderecoCidade(String enderecoCidade) {
-        this.enderecoCidade = enderecoCidade;
+    public void setCityAddress(String cityAddress) {
+        this.cityAddress = cityAddress;
     }
 
-    public String getEnderecoCep() {
-        return enderecoCep;
+    public String getCepAddress() {
+        return cepAddress;
     }
 
-    public void setEnderecoCep(String enderecoCep) {
-        this.enderecoCep = enderecoCep;
+    public void setCepAddress(String cepAddress) {
+        this.cepAddress = cepAddress;
     }
 }

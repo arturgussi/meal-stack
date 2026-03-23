@@ -96,11 +96,11 @@ public class UserResponseDTO {
         this.streetAddress = streetAddress;
     }
 
-    public String getNumberAddress() {
+    public Integer getNumberAddress() {
         return numberAddress;
     }
 
-    public void setNumberAddress(String numberAddress) {
+    public void setNumberAddress(Integer numberAddress) {
         this.numberAddress = numberAddress;
     }
 
