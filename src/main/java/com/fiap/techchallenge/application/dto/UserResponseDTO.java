@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.application.dto;
 
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 
 import java.time.LocalDateTime;
 
@@ -23,9 +23,9 @@ public class UserResponseDTO {
     }
 
     public UserResponseDTO(Long id, String name, String email, String login, String cpf,
-                           UserType userType, String streetAddress, Integer numberAddress,
-                           String cityAddress, String cepAddress,
-                           LocalDateTime createdAt, LocalDateTime updatedAt) {
+            UserType userType, String streetAddress, Integer numberAddress,
+            String cityAddress, String cepAddress,
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;

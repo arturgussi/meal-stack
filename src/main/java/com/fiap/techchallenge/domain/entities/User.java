@@ -1,7 +1,5 @@
 package com.fiap.techchallenge.domain.entities;
 
-import com.fiap.techchallenge.domain.enums.UserType;
-
 import java.time.LocalDateTime;
 
 /**
@@ -27,8 +25,8 @@ public class User {
     }
 
     public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress) {
+            UserType userType, String streetAddress, Integer numberAddress,
+            String cityAddress, String cepAddress) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -45,8 +43,8 @@ public class User {
     }
 
     public User(Long id, String name, String email, String login, String password, String cpf,
-                UserType userType, String streetAddress, Integer numberAddress,
-                String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            UserType userType, String streetAddress, Integer numberAddress,
+            String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;

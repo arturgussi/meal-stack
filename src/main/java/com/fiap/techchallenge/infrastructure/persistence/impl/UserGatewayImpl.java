@@ -2,7 +2,7 @@ package com.fiap.techchallenge.infrastructure.persistence.impl;
 
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import com.fiap.techchallenge.infrastructure.persistence.entity.UserEntity;
 import com.fiap.techchallenge.infrastructure.persistence.repository.UserRepositoryJPA;
 import org.springframework.stereotype.Component;
@@ -211,7 +211,6 @@ public class UserGatewayImpl implements UserGateway {
                 entity.getCityAddress(),
                 entity.getCepAddress(),
                 entity.getCreatedAt(),
-                entity.getUpdatedAt()
-        );
+                entity.getUpdatedAt());
     }
 }

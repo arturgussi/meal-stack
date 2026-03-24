@@ -2,7 +2,7 @@ package com.fiap.techchallenge.application.usecases.user;
 
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,8 +31,10 @@ class CreateUserUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901", 
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+        UserType userType = new UserType();
+        userType.setId(1L);
+        user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
+                userType, "Rua A", 1, "SP", "01000000");
     }
 
     @Test
@@ -63,7 +65,7 @@ class CreateUserUseCaseTest {
         assertThatThrownBy(() -> createUserUseCase.execute(user))
                 .isInstanceOf(BusinessRuleException.class)
                 .hasMessage("Email já cadastrado: joao@email.com");
-        
+
         verify(userGateway, never()).save(any());
     }
 
@@ -78,7 +80,7 @@ class CreateUserUseCaseTest {
         assertThatThrownBy(() -> createUserUseCase.execute(user))
                 .isInstanceOf(BusinessRuleException.class)
                 .hasMessage("Login já cadastrado: joao.login");
-        
+
         verify(userGateway, never()).save(any());
     }
 
@@ -94,7 +96,7 @@ class CreateUserUseCaseTest {
         assertThatThrownBy(() -> createUserUseCase.execute(user))
                 .isInstanceOf(BusinessRuleException.class)
                 .hasMessage("CPF já cadastrado: 12345678901");
-        
+
         verify(userGateway, never()).save(any());
     }
 }
