@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.application.dto;
+package com.fiap.techchallenge.application.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 

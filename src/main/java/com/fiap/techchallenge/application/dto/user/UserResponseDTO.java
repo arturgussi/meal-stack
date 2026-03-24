@@ -1,63 +1,37 @@
-package com.fiap.techchallenge.infrastructure.persistence.entity;
+package com.fiap.techchallenge.application.dto.user;
 
 import com.fiap.techchallenge.domain.entities.UserType;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tb_usuarios")
-public class UserEntity {
+public class UserResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
     private Long id;
-
-    @Column(name = "nm_usuario")
     private String name;
-    @Column(name = "ds_email")
     private String email;
-    @Column(name = "ds_login")
     private String login;
-    @Column(name = "ds_senha")
-    private String password;
-    @Column(name = "nr_cpf")
     private String cpf;
-
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_usuario")
-    private UserTypeEntity userType;
-
-    @Column(name = "ds_endereco_rua")
+    private UserType userType;
     private String streetAddress;
-    @Column(name = "nr_endereco_numero")
     private Integer numberAddress;
-    @Column(name = "ds_endereco_cidade")
     private String cityAddress;
-    @Column(name = "nr_endereco_cep")
     private String cepAddress;
-
-    @org.hibernate.annotations.Generated(event = org.hibernate.generator.EventType.INSERT)
-    @Column(name = "dt_criacao", insertable = false, updatable = false)
     private LocalDateTime createdAt;
-    @org.hibernate.annotations.Generated(event = {org.hibernate.generator.EventType.INSERT, org.hibernate.generator.EventType.UPDATE})
-    @Column(name = "dt_atualizacao", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-    public UserEntity() {
+    public UserResponseDTO() {
     }
 
-    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType,
-            String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt,
-            LocalDateTime updatedAt) {
+    public UserResponseDTO(Long id, String name, String email, String login, String cpf,
+            UserType userType, String streetAddress, Integer numberAddress,
+            String cityAddress, String cepAddress,
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
-        this.password = password;
         this.cpf = cpf;
-        setUserType(userType);
+        this.userType = userType;
         this.streetAddress = streetAddress;
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
@@ -98,14 +72,6 @@ public class UserEntity {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -115,18 +81,11 @@ public class UserEntity {
     }
 
     public UserType getUserType() {
-        if (this.userType == null) {
-            return null;
-        }
-        return new UserType(this.userType.getId(), this.userType.getName(), this.userType.getCreatedAt(), this.userType.getUpdatedAt());
+        return userType;
     }
 
     public void setUserType(UserType userType) {
-        if (userType == null) {
-            this.userType = null;
-        } else {
-            this.userType = new UserTypeEntity(userType.getId(), userType.getName(), userType.getCreatedAt(), userType.getUpdatedAt());
-        }
+        this.userType = userType;
     }
 
     public String getStreetAddress() {
@@ -165,7 +124,15 @@ public class UserEntity {
         return createdAt;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

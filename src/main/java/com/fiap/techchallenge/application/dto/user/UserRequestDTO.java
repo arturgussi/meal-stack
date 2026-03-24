@@ -1,4 +1,4 @@
-package com.fiap.techchallenge.application.dto;
+package com.fiap.techchallenge.application.dto.user;
 
 import com.fiap.techchallenge.domain.entities.UserType;
 import jakarta.validation.constraints.Email;

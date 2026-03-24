@@ -1,41 +1,34 @@
-package com.fiap.techchallenge.application.dto;
-
-import com.fiap.techchallenge.domain.entities.UserType;
+package com.fiap.techchallenge.application.dto.restaurant;
 
 import java.time.LocalDateTime;
 
-public class UserResponseDTO {
+public class RestaurantResponseDTO {
 
     private Long id;
     private String name;
-    private String email;
-    private String login;
-    private String cpf;
-    private UserType userType;
+    private String cuisineType;
+    private String operatingHours;
     private String streetAddress;
     private Integer numberAddress;
     private String cityAddress;
     private String cepAddress;
+    private Long ownerId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public UserResponseDTO() {
+    public RestaurantResponseDTO() {
     }
 
-    public UserResponseDTO(Long id, String name, String email, String login, String cpf,
-            UserType userType, String streetAddress, Integer numberAddress,
-            String cityAddress, String cepAddress,
-            LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public RestaurantResponseDTO(Long id, String name, String cuisineType, String operatingHours, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
-        this.email = email;
-        this.login = login;
-        this.cpf = cpf;
-        this.userType = userType;
+        this.cuisineType = cuisineType;
+        this.operatingHours = operatingHours;
         this.streetAddress = streetAddress;
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
         this.cepAddress = cepAddress;
+        this.ownerId = ownerId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -56,36 +49,20 @@ public class UserResponseDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCuisineType() {
+        return cuisineType;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCuisineType(String cuisineType) {
+        this.cuisineType = cuisineType;
     }
 
-    public String getLogin() {
-        return login;
+    public String getOperatingHours() {
+        return operatingHours;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setOperatingHours(String operatingHours) {
+        this.operatingHours = operatingHours;
     }
 
     public String getStreetAddress() {
@@ -118,6 +95,14 @@ public class UserResponseDTO {
 
     public void setCepAddress(String cepAddress) {
         this.cepAddress = cepAddress;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 
     public LocalDateTime getCreatedAt() {
