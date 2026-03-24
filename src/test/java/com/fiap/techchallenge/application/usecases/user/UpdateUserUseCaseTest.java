@@ -48,15 +48,12 @@ class UpdateUserUseCaseTest {
     @Test
     @DisplayName("Should update user successfully")
     void shouldUpdateUserWithSuccess() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.of(existingUser));
         when(userGateway.existsByEmail("new@email.com")).thenReturn(false);
         when(userGateway.save(any(User.class))).thenReturn(existingUser);
 
-        // Act
         User result = updateUserUseCase.execute(1L, userUpdates);
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.getName()).isEqualTo("João New");
         assertThat(result.getEmail()).isEqualTo("new@email.com");
@@ -66,10 +63,8 @@ class UpdateUserUseCaseTest {
     @Test
     @DisplayName("Should throw ResourceNotFoundException when user does not exist")
     void shouldThrowExceptionWhenUserNotFound() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThatThrownBy(() -> updateUserUseCase.execute(1L, userUpdates))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Usuário não encontrado com ID: 1");
@@ -80,11 +75,9 @@ class UpdateUserUseCaseTest {
     @Test
     @DisplayName("Should throw BusinessRuleException when new email is already taken by another user")
     void shouldThrowExceptionWhenEmailAlreadyTaken() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.of(existingUser));
         when(userGateway.existsByEmail("new@email.com")).thenReturn(true);
 
-        // Act & Assert
         assertThatThrownBy(() -> updateUserUseCase.execute(1L, userUpdates))
                 .isInstanceOf(BusinessRuleException.class)
                 .hasMessage("Email já cadastrado: new@email.com");
@@ -95,15 +88,12 @@ class UpdateUserUseCaseTest {
     @Test
     @DisplayName("Should update user successfully when email remains the same")
     void shouldUpdateUserWhenEmailUnchanged() {
-        // Arrange
         userUpdates.setEmail("old@email.com");
         when(userGateway.findById(1L)).thenReturn(Optional.of(existingUser));
         when(userGateway.save(any(User.class))).thenReturn(existingUser);
 
-        // Act
         User result = updateUserUseCase.execute(1L, userUpdates);
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.getEmail()).isEqualTo("old@email.com");
         verify(userGateway, never()).existsByEmail(anyString());

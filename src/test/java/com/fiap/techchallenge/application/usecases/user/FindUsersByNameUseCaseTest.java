@@ -28,15 +28,12 @@ class FindUsersByNameUseCaseTest {
     @Test
     @DisplayName("Should return list of users when name matches")
     void shouldReturnUsersWhenNameMatches() {
-        // Arrange
         User user = new User();
         user.setName("João Silva");
         when(userGateway.findByNameContainingIgnoreCase("João")).thenReturn(List.of(user));
 
-        // Act
         List<User> result = findUsersByNameUseCase.execute("João");
 
-        // Assert
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getName()).isEqualTo("João Silva");
     }
@@ -44,13 +41,10 @@ class FindUsersByNameUseCaseTest {
     @Test
     @DisplayName("Should return empty list when no name matches")
     void shouldReturnEmptyListWhenNoMatch() {
-        // Arrange
         when(userGateway.findByNameContainingIgnoreCase("Unknown")).thenReturn(Collections.emptyList());
 
-        // Act
         List<User> result = findUsersByNameUseCase.execute("Unknown");
 
-        // Assert
         assertThat(result).isEmpty();
     }
 }

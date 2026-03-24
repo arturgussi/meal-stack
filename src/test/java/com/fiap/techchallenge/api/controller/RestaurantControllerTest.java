@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.techchallenge.application.dto.restaurant.RestaurantRequestDTO;
 import com.fiap.techchallenge.application.usecases.restaurante.*;
 import com.fiap.techchallenge.domain.entities.Restaurant;
-import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
-import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,8 @@ class RestaurantControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+    private final ObjectMapper objectMapper = new ObjectMapper()
+            .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
     @MockitoBean
     private CreateRestaurantUseCase createRestaurantUseCase;
@@ -51,8 +50,10 @@ class RestaurantControllerTest {
 
     @BeforeEach
     void setUp() {
-        validRequestDTO = new RestaurantRequestDTO("Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", 1L);
-        mockedRestaurant = new Restaurant(1L, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", 1L, LocalDateTime.now(), LocalDateTime.now());
+        validRequestDTO = new RestaurantRequestDTO("Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP",
+                "01000000", 1L);
+        mockedRestaurant = new Restaurant(1L, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000",
+                1L, LocalDateTime.now(), LocalDateTime.now());
     }
 
     @Test
@@ -60,8 +61,8 @@ class RestaurantControllerTest {
         when(createRestaurantUseCase.execute(any(Restaurant.class))).thenReturn(mockedRestaurant);
 
         mockMvc.perform(post("/v1/restaurants")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validRequestDTO)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(validRequestDTO)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(mockedRestaurant.getId()))
                 .andExpect(jsonPath("$.name").value(mockedRestaurant.getName()));
@@ -71,11 +72,12 @@ class RestaurantControllerTest {
 
     @Test
     void shouldReturn400WhenCreateRestaurantWithInvalidData() throws Exception {
-        RestaurantRequestDTO invalidDTO = new RestaurantRequestDTO("", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "invalid_cep", 1L);
+        RestaurantRequestDTO invalidDTO = new RestaurantRequestDTO("", "Fast Food", "08:00-22:00", "Rua A", 123, "SP",
+                "invalid_cep", 1L);
 
         mockMvc.perform(post("/v1/restaurants")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidDTO)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(invalidDTO)))
                 .andExpect(status().isBadRequest());
 
         verify(createRestaurantUseCase, never()).execute(any(Restaurant.class));
@@ -110,8 +112,8 @@ class RestaurantControllerTest {
         when(updateRestaurantUseCase.execute(eq(1L), any(Restaurant.class))).thenReturn(mockedRestaurant);
 
         mockMvc.perform(put("/v1/restaurants/{id}", 1L)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validRequestDTO)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(validRequestDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(mockedRestaurant.getId()))
                 .andExpect(jsonPath("$.name").value(mockedRestaurant.getName()));

@@ -2,9 +2,9 @@ package com.fiap.techchallenge.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
-import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UserRequestDTO;
+import com.fiap.techchallenge.application.dto.user.AlterarSenhaDTO;
+import com.fiap.techchallenge.application.dto.user.LoginDTO;
+import com.fiap.techchallenge.application.dto.user.UserRequestDTO;
 import com.fiap.techchallenge.application.usecases.user.*;
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.entities.UserType;
@@ -92,7 +92,7 @@ class UserControllerTest {
         @Test
         @DisplayName("POST /v1/users - Should return 400 Bad Request on validation error")
         void shouldReturn400OnValidationError() throws Exception {
-                userRequestDTO.setName(""); // Invalid name
+                userRequestDTO.setName("");
 
                 mockMvc.perform(post("/v1/users")
                                 .contentType(MediaType.APPLICATION_JSON)

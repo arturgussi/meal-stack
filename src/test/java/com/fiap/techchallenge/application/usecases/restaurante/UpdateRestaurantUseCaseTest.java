@@ -4,7 +4,7 @@ import com.fiap.techchallenge.application.gateways.restaurant.RestaurantGateway;
 import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.Restaurant;
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
 import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -34,15 +34,19 @@ class UpdateRestaurantUseCaseTest {
 
     @Test
     void shouldUpdateRestaurantSuccessfully() {
+        UserType userType = new UserType();
+        userType.setId(2L);
         Long restaurantId = 10L;
         Long ownerId = 1L;
-        
-        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", ownerId);
-        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000", ownerId);
-        
+
+        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A",
+                123, "SP", "01000000", ownerId);
+        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000",
+                ownerId);
+
         User owner = new User();
         owner.setId(ownerId);
-        owner.setUserType(UserType.DONO_RESTAURANTE);
+        owner.setUserType(userType);
 
         when(restaurantGateway.findById(restaurantId)).thenReturn(Optional.of(existingRestaurant));
         when(userGateway.findById(ownerId)).thenReturn(Optional.of(owner));
@@ -67,15 +71,19 @@ class UpdateRestaurantUseCaseTest {
 
     @Test
     void shouldUpdateRestaurantSuccessfullyWhenNameRemainsSame() {
+        UserType userType = new UserType();
+        userType.setId(2L);
         Long restaurantId = 10L;
         Long ownerId = 1L;
-        
-        Restaurant existingRestaurant = new Restaurant(restaurantId, "Same Name", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", ownerId);
-        Restaurant updates = new Restaurant(null, "Same Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000", ownerId);
-        
+
+        Restaurant existingRestaurant = new Restaurant(restaurantId, "Same Name", "Fast Food", "08:00-22:00", "Rua A",
+                123, "SP", "01000000", ownerId);
+        Restaurant updates = new Restaurant(null, "Same Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000",
+                ownerId);
+
         User owner = new User();
         owner.setId(ownerId);
-        owner.setUserType(UserType.DONO_RESTAURANTE);
+        owner.setUserType(userType);
 
         when(restaurantGateway.findById(restaurantId)).thenReturn(Optional.of(existingRestaurant));
         when(userGateway.findById(ownerId)).thenReturn(Optional.of(owner));
@@ -96,15 +104,16 @@ class UpdateRestaurantUseCaseTest {
     void shouldThrowResourceNotFoundExceptionWhenRestaurantNotFound() {
         Long restaurantId = 10L;
         Long ownerId = 1L;
-        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000", ownerId);
+        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000",
+                ownerId);
 
         when(restaurantGateway.findById(restaurantId)).thenReturn(Optional.empty());
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, 
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> updateRestaurantUseCase.execute(restaurantId, updates));
 
         assertThat(exception.getMessage()).contains("Restaurante não encontrado com ID: " + restaurantId);
-        
+
         verify(restaurantGateway, times(1)).findById(restaurantId);
         verify(userGateway, never()).findById(any());
         verify(restaurantGateway, never()).save(any());
@@ -114,13 +123,15 @@ class UpdateRestaurantUseCaseTest {
     void shouldThrowResourceNotFoundExceptionWhenOwnerNotFound() {
         Long restaurantId = 10L;
         Long ownerId = 1L;
-        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", ownerId);
-        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000", ownerId);
+        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A",
+                123, "SP", "01000000", ownerId);
+        Restaurant updates = new Restaurant(null, "New Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000",
+                ownerId);
 
         when(restaurantGateway.findById(restaurantId)).thenReturn(Optional.of(existingRestaurant));
         when(userGateway.findById(ownerId)).thenReturn(Optional.empty());
 
-        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, 
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class,
                 () -> updateRestaurantUseCase.execute(restaurantId, updates));
 
         assertThat(exception.getMessage()).contains("Usuário (Dono) não encontrado com ID: " + ownerId);
@@ -128,25 +139,29 @@ class UpdateRestaurantUseCaseTest {
 
     @Test
     void shouldThrowBusinessRuleExceptionWhenNameAlreadyExists() {
+        UserType userType = new UserType();
+        userType.setId(2L);
         Long restaurantId = 10L;
         Long ownerId = 1L;
-        
-        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", ownerId);
-        Restaurant updates = new Restaurant(null, "Existing Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ", "20000000", ownerId);
-        
+
+        Restaurant existingRestaurant = new Restaurant(restaurantId, "Old Name", "Fast Food", "08:00-22:00", "Rua A",
+                123, "SP", "01000000", ownerId);
+        Restaurant updates = new Restaurant(null, "Existing Name", "Gourmet", "09:00-23:00", "Rua B", 456, "RJ",
+                "20000000", ownerId);
+
         User owner = new User();
         owner.setId(ownerId);
-        owner.setUserType(UserType.DONO_RESTAURANTE);
+        owner.setUserType(userType);
 
         when(restaurantGateway.findById(restaurantId)).thenReturn(Optional.of(existingRestaurant));
         when(userGateway.findById(ownerId)).thenReturn(Optional.of(owner));
         when(restaurantGateway.existsByName("Existing Name")).thenReturn(true);
 
-        BusinessRuleException exception = assertThrows(BusinessRuleException.class, 
+        BusinessRuleException exception = assertThrows(BusinessRuleException.class,
                 () -> updateRestaurantUseCase.execute(restaurantId, updates));
 
         assertThat(exception.getMessage()).contains("Já existe um restaurante cadastrado com o nome: Existing Name");
-        
+
         verify(restaurantGateway, never()).save(any());
     }
 }

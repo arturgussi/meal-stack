@@ -2,7 +2,6 @@ package com.fiap.techchallenge.infrastructure.persistence.impl;
 
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.entities.UserType;
-import com.fiap.techchallenge.infrastructure.persistence.repository.UserRepositoryJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +23,16 @@ class UserGatewayImplTest {
     @Autowired
     private UserGatewayImpl userGateway;
 
-    @Autowired
-    private UserRepositoryJPA userRepositoryJPA;
-
     @Test
     @DisplayName("Should save a domain user and retrieve it correctly (Mapping & Persistence)")
     void shouldSaveAndRetrieveUser() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
                 userType, "Rua A", 1, "SP", "01000000");
 
-        // Act
         User savedUser = userGateway.save(user);
 
-        // Assert
         assertThat(savedUser.getId()).isNotNull();
         assertThat(savedUser.getName()).isEqualTo("João");
 
@@ -51,17 +44,14 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find user by email")
     void shouldFindUserByEmail() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
                 userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
-        // Act
         Optional<User> foundUser = userGateway.findByEmail("joao@email.com");
 
-        // Assert
         assertThat(foundUser).isPresent();
         assertThat(foundUser.get().getName()).isEqualTo("João");
     }
@@ -69,14 +59,12 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should check existence by CPF")
     void shouldCheckExistsByCpf() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "12345678901", "12345678901",
                 userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
-        // Act & Assert
         assertThat(userGateway.existsByCpf("12345678901")).isTrue();
         assertThat(userGateway.existsByCpf("00000000000")).isFalse();
     }
@@ -84,7 +72,6 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find users by name containing ignore case")
     void shouldFindByNameContaining() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user1 = new User(null, "João Silva", "joao@email.com", "joao", "123", "1", userType, "A", 1, "SP",
@@ -94,10 +81,8 @@ class UserGatewayImplTest {
         userGateway.save(user1);
         userGateway.save(user2);
 
-        // Act
         List<User> results = userGateway.findByNameContainingIgnoreCase("silva");
 
-        // Assert
         assertThat(results).hasSize(2);
         assertThat(results).extracting(User::getName).containsExactlyInAnyOrder("João Silva", "Maria Silva");
     }
@@ -105,17 +90,14 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find user by login")
     void shouldFindUserByLogin() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
                 userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
-        // Act
         Optional<User> foundUser = userGateway.findByLogin("joao.login");
 
-        // Assert
         assertThat(foundUser).isPresent();
         assertThat(foundUser.get().getLogin()).isEqualTo("joao.login");
     }
@@ -123,17 +105,14 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should delete user by ID")
     void shouldDeleteById() {
-        // Arrange
         UserType userType = new UserType();
         userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
                 userType, "Rua A", 1, "SP", "01000000");
         User savedUser = userGateway.save(user);
 
-        // Act
         userGateway.deleteById(savedUser.getId());
 
-        // Assert
         assertThat(userGateway.findById(savedUser.getId())).isEmpty();
     }
 }

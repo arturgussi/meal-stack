@@ -41,14 +41,11 @@ class ChangeUserPasswordUseCaseTest {
     @Test
     @DisplayName("Should change password successfully when current password is correct")
     void shouldChangePasswordWithSuccess() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.of(user));
         when(userGateway.save(any(User.class))).thenReturn(user);
 
-        // Act
         changeUserPasswordUseCase.execute(1L, "old_password", "new_password");
 
-        // Assert
         assertThat(user.getPassword()).isEqualTo("new_password");
         verify(userGateway, times(1)).save(user);
     }
@@ -56,10 +53,8 @@ class ChangeUserPasswordUseCaseTest {
     @Test
     @DisplayName("Should throw ResourceNotFoundException when user is not found")
     void shouldThrowExceptionWhenUserNotFound() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThatThrownBy(() -> changeUserPasswordUseCase.execute(1L, "any", "new"))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Usuário não encontrado com ID: 1");
@@ -68,14 +63,12 @@ class ChangeUserPasswordUseCaseTest {
     @Test
     @DisplayName("Should throw InvalidPasswordException when current password is incorrect")
     void shouldThrowExceptionWhenCurrentPasswordIncorrect() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.of(user));
 
-        // Act & Assert
         assertThatThrownBy(() -> changeUserPasswordUseCase.execute(1L, "wrong_password", "new"))
                 .isInstanceOf(InvalidPasswordException.class)
                 .hasMessage("Senha atual errada");
-        
+
         verify(userGateway, never()).save(any());
     }
 }

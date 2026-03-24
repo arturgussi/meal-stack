@@ -27,15 +27,12 @@ class ListAllUsersUseCaseTest {
     @Test
     @DisplayName("Should return all users")
     void shouldReturnAllUsers() {
-        // Arrange
         User user1 = new User();
         User user2 = new User();
         when(userGateway.findAll()).thenReturn(List.of(user1, user2));
 
-        // Act
         List<User> result = listAllUsersUseCase.execute();
 
-        // Assert
         assertThat(result).hasSize(2);
     }
 }

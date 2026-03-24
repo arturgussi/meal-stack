@@ -29,15 +29,12 @@ class FindUserByIdUseCaseTest {
     @Test
     @DisplayName("Should return user when ID exists")
     void shouldReturnUserWhenIdExists() {
-        // Arrange
         User user = new User();
         user.setId(1L);
         when(userGateway.findById(1L)).thenReturn(Optional.of(user));
 
-        // Act
         User result = findUserByIdUseCase.execute(1L);
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
     }
@@ -45,10 +42,8 @@ class FindUserByIdUseCaseTest {
     @Test
     @DisplayName("Should throw ResourceNotFoundException when ID does not exist")
     void shouldThrowExceptionWhenIdDoesNotExist() {
-        // Arrange
         when(userGateway.findById(1L)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThatThrownBy(() -> findUserByIdUseCase.execute(1L))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Usuário não encontrado com ID: 1");

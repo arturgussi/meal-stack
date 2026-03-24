@@ -1,6 +1,5 @@
 package com.fiap.techchallenge.domain.entities;
 
-import com.fiap.techchallenge.domain.entities.UserType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

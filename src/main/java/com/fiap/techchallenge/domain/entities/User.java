@@ -164,6 +164,10 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isRestaurantOwner() {
+        return this.userType != null && Long.valueOf(2).equals(this.userType.getId());
+    }
+
     @Override
     public String toString() {
         return "User{" +
