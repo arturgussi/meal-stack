@@ -1,20 +1,20 @@
-package com.fiap.techchallenge.domain.repositories;
+package com.fiap.techchallenge.application.gateways.user;
 
-import com.fiap.techchallenge.domain.entities.Usuario;
-import com.fiap.techchallenge.domain.enums.TipoUsuario;
+import com.fiap.techchallenge.domain.entities.User;
+import com.fiap.techchallenge.domain.enums.UserType;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioRepository {
-
+public interface UserGateway {
+ 
     /**
      * Salva um novo usuário ou atualiza um existente.
      *
-     * @param usuario Usuário a ser salvo
+     * @param user Usuário a ser salvo
      * @return Usuário salvo com ID gerado (se novo)
      */
-    Usuario save(Usuario usuario);
+    User save(User user);
 
     /**
      * Busca um usuário pelo ID.
@@ -22,14 +22,14 @@ public interface UsuarioRepository {
      * @param id ID do usuário
      * @return Optional com o usuário se encontrado
      */
-    Optional<Usuario> findById(Long id);
+    Optional<User> findById(Long id);
 
     /**
      * Retorna todos os usuários.
      *
      * @return Lista de todos os usuários
      */
-    List<Usuario> findAll();
+    List<User> findAll();
 
     /**
      * Busca um usuário pelo email.
@@ -37,7 +37,7 @@ public interface UsuarioRepository {
      * @param email Email do usuário
      * @return Optional com o usuário se encontrado
      */
-    Optional<Usuario> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     /**
      * Busca um usuário pelo login.
@@ -45,7 +45,7 @@ public interface UsuarioRepository {
      * @param login Login do usuário
      * @return Optional com o usuário se encontrado
      */
-    Optional<Usuario> findByLogin(String login);
+    Optional<User> findByLogin(String login);
 
     /**
      * Busca usuários cujo nome contém a string especificada (case-insensitive).
@@ -53,7 +53,7 @@ public interface UsuarioRepository {
      * @param nome Parte do nome do usuário
      * @return Lista de usuários encontrados
      */
-    List<Usuario> findByNomeContainingIgnoreCase(String nome);
+    List<User> findByNameContainingIgnoreCase(String nome);
 
     /**
      * Busca um usuário pelo CPF.
@@ -61,7 +61,7 @@ public interface UsuarioRepository {
      * @param cpf CPF do usuário
      * @return Optional com o usuário se encontrado
      */
-    Optional<Usuario> findByCpf(String cpf);
+    Optional<User> findByCpf(String cpf);
 
     /**
      * Busca usuários por tipo.
@@ -69,7 +69,7 @@ public interface UsuarioRepository {
      * @param tipoUsuario Tipo do usuário
      * @return Lista de usuários do tipo especificado
      */
-    List<Usuario> findByTipoUsuario(TipoUsuario tipoUsuario);
+    List<User> findByUserType(UserType tipoUsuario);
 
     /**
      * Verifica se existe um usuário com o email especificado.
