@@ -13,7 +13,7 @@ public class UpdateRestaurantUseCase {
     private final UserGateway userGateway;
     private final RestaurantGateway restaurantGateway;
 
-    public UpdateRestaurantUseCase(UserGateway userGateway, RestaurantGateway restaurantGateway) {
+    public UpdateRestaurantUseCase(RestaurantGateway restaurantGateway, UserGateway userGateway) {
         this.userGateway = userGateway;
         this.restaurantGateway = restaurantGateway;
     }

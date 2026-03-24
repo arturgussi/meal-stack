@@ -2,10 +2,9 @@ package com.fiap.techchallenge.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fiap.techchallenge.application.dto.AlterarSenhaDTO;
-import com.fiap.techchallenge.application.dto.LoginDTO;
-import com.fiap.techchallenge.application.dto.UserRequestDTO;
-import com.fiap.techchallenge.application.dto.UserResponseDTO;
+import com.fiap.techchallenge.application.dto.user.AlterarSenhaDTO;
+import com.fiap.techchallenge.application.dto.user.LoginDTO;
+import com.fiap.techchallenge.application.dto.user.UserRequestDTO;
 import com.fiap.techchallenge.application.usecases.user.*;
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.enums.UserType;
