@@ -38,8 +38,10 @@ public class UserEntity {
     @Column(name = "nr_endereco_cep")
     private String cepAddress;
 
+    @org.hibernate.annotations.Generated(event = org.hibernate.generator.EventType.INSERT)
     @Column(name = "dt_criacao", insertable = false, updatable = false)
     private LocalDateTime createdAt;
+    @org.hibernate.annotations.Generated(event = {org.hibernate.generator.EventType.INSERT, org.hibernate.generator.EventType.UPDATE})
     @Column(name = "dt_atualizacao", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
