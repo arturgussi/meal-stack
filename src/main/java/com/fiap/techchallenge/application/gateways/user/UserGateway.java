@@ -1,13 +1,13 @@
 package com.fiap.techchallenge.application.gateways.user;
 
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserGateway {
- 
+
     /**
      * Salva um novo usuário ou atualiza um existente.
      *

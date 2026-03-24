@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.domain.entities;
 
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +14,10 @@ class UserTest {
     @Test
     @DisplayName("Should instantiate a user using the reduced constructor (no dates)")
     void shouldCreateUserWithReducedConstructor() {
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(1L, "João Silva", "joao@email.com",
-                "joaologin", "senha123", "12345678909", UserType.CLIENTE,
+                "joaologin", "senha123", "12345678909", userType,
                 "Rua A", 123, "São Paulo", "01000000");
 
         assertNotNull(user);
@@ -25,7 +27,7 @@ class UserTest {
         assertEquals("joaologin", user.getLogin());
         assertEquals("senha123", user.getPassword());
         assertEquals("12345678909", user.getCpf());
-        assertEquals(UserType.CLIENTE, user.getUserType());
+        assertEquals(userType, user.getUserType());
         assertEquals("Rua A", user.getStreetAddress());
         assertEquals(123, user.getNumberAddress());
         assertEquals("São Paulo", user.getCityAddress());
@@ -38,8 +40,10 @@ class UserTest {
     @DisplayName("Should instantiate a user using the full constructor (with dates)")
     void shouldCreateUserWithFullConstructor() {
         LocalDateTime now = LocalDateTime.now();
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(1L, "João Silva", "joao@email.com",
-                "joaologin", "senha123", "12345678909", UserType.CLIENTE,
+                "joaologin", "senha123", "12345678909", userType,
                 "Rua A", 123, "São Paulo", "01000000", now, now.plusHours(1));
 
         assertNotNull(user);
@@ -52,6 +56,8 @@ class UserTest {
     void shouldValidateGettersAndSetters() {
         User user = new User();
         LocalDateTime now = LocalDateTime.now();
+        UserType userType = new UserType();
+        userType.setId(2L);
 
         user.setId(2L);
         user.setName("Maria");
@@ -59,7 +65,7 @@ class UserTest {
         user.setLogin("marialogin");
         user.setPassword("secret");
         user.setCpf("98765432100");
-        user.setUserType(UserType.DONO_RESTAURANTE);
+        user.setUserType(userType);
         user.setStreetAddress("Rua B");
         user.setNumberAddress(456);
         user.setCityAddress("Rio de Janeiro");
@@ -73,7 +79,7 @@ class UserTest {
         assertEquals("marialogin", user.getLogin());
         assertEquals("secret", user.getPassword());
         assertEquals("98765432100", user.getCpf());
-        assertEquals(UserType.DONO_RESTAURANTE, user.getUserType());
+        assertEquals(userType, user.getUserType());
         assertEquals("Rua B", user.getStreetAddress());
         assertEquals(456, user.getNumberAddress());
         assertEquals("Rio de Janeiro", user.getCityAddress());
@@ -86,12 +92,15 @@ class UserTest {
     @DisplayName("Should validate toString method")
     void shouldValidateToString() {
         User user = new User();
+        UserType userType = new UserType();
+        userType.setId(1L);
+
         user.setId(1L);
         user.setName("João");
         user.setEmail("joao@email.com");
         user.setLogin("joao123");
         user.setCpf("123");
-        user.setUserType(UserType.CLIENTE);
+        user.setUserType(userType);
 
         String toString = user.toString();
 

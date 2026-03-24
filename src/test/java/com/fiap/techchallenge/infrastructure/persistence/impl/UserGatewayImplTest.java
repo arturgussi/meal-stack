@@ -1,7 +1,7 @@
 package com.fiap.techchallenge.infrastructure.persistence.impl;
 
 import com.fiap.techchallenge.domain.entities.User;
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import com.fiap.techchallenge.infrastructure.persistence.repository.UserRepositoryJPA;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,10 @@ class UserGatewayImplTest {
     @DisplayName("Should save a domain user and retrieve it correctly (Mapping & Persistence)")
     void shouldSaveAndRetrieveUser() {
         // Arrange
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+                userType, "Rua A", 1, "SP", "01000000");
 
         // Act
         User savedUser = userGateway.save(user);
@@ -40,7 +42,7 @@ class UserGatewayImplTest {
         // Assert
         assertThat(savedUser.getId()).isNotNull();
         assertThat(savedUser.getName()).isEqualTo("João");
-        
+
         Optional<User> foundUser = userGateway.findById(savedUser.getId());
         assertThat(foundUser).isPresent();
         assertThat(foundUser.get().getEmail()).isEqualTo("joao@email.com");
@@ -50,8 +52,10 @@ class UserGatewayImplTest {
     @DisplayName("Should find user by email")
     void shouldFindUserByEmail() {
         // Arrange
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+                userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         // Act
@@ -66,8 +70,10 @@ class UserGatewayImplTest {
     @DisplayName("Should check existence by CPF")
     void shouldCheckExistsByCpf() {
         // Arrange
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "12345678901", "12345678901",
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+                userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         // Act & Assert
@@ -79,8 +85,12 @@ class UserGatewayImplTest {
     @DisplayName("Should find users by name containing ignore case")
     void shouldFindByNameContaining() {
         // Arrange
-        User user1 = new User(null, "João Silva", "joao@email.com", "joao", "123", "1", UserType.CLIENTE, "A", 1, "SP", "1");
-        User user2 = new User(null, "Maria Silva", "maria@email.com", "maria", "123", "2", UserType.CLIENTE, "A", 2, "SP", "1");
+        UserType userType = new UserType();
+        userType.setId(1L);
+        User user1 = new User(null, "João Silva", "joao@email.com", "joao", "123", "1", userType, "A", 1, "SP",
+                "1");
+        User user2 = new User(null, "Maria Silva", "maria@email.com", "maria", "123", "2", userType, "A", 2,
+                "SP", "1");
         userGateway.save(user1);
         userGateway.save(user2);
 
@@ -96,8 +106,10 @@ class UserGatewayImplTest {
     @DisplayName("Should find user by login")
     void shouldFindUserByLogin() {
         // Arrange
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+                userType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         // Act
@@ -112,8 +124,10 @@ class UserGatewayImplTest {
     @DisplayName("Should delete user by ID")
     void shouldDeleteById() {
         // Arrange
+        UserType userType = new UserType();
+        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                UserType.CLIENTE, "Rua A", 1, "SP", "01000000");
+                userType, "Rua A", 1, "SP", "01000000");
         User savedUser = userGateway.save(user);
 
         // Act

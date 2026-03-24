@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.infrastructure.persistence.entity;
 
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -25,9 +25,9 @@ public class UserEntity {
     @Column(name = "nr_cpf")
     private String cpf;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tp_usuario")
-    private UserType userType;
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_usuario")
+    private UserTypeEntity userType;
 
     @Column(name = "ds_endereco_rua")
     private String streetAddress;
@@ -43,18 +43,19 @@ public class UserEntity {
     @Column(name = "dt_atualizacao", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
 
-
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType, String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserEntity(Long id, String name, String email, String login, String password, String cpf, UserType userType,
+            String streetAddress, Integer numberAddress, String cityAddress, String cepAddress, LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.login = login;
         this.password = password;
         this.cpf = cpf;
-        this.userType = userType;
+        setUserType(userType);
         this.streetAddress = streetAddress;
         this.numberAddress = numberAddress;
         this.cityAddress = cityAddress;
@@ -112,11 +113,18 @@ public class UserEntity {
     }
 
     public UserType getUserType() {
-        return userType;
+        if (this.userType == null) {
+            return null;
+        }
+        return new UserType(this.userType.getId(), this.userType.getName(), this.userType.getCreatedAt(), this.userType.getUpdatedAt());
     }
 
     public void setUserType(UserType userType) {
-        this.userType = userType;
+        if (userType == null) {
+            this.userType = null;
+        } else {
+            this.userType = new UserTypeEntity(userType.getId(), userType.getName(), userType.getCreatedAt(), userType.getUpdatedAt());
+        }
     }
 
     public String getStreetAddress() {

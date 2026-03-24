@@ -1,6 +1,6 @@
 package com.fiap.techchallenge.application.dto;
 
-import com.fiap.techchallenge.domain.enums.UserType;
+import com.fiap.techchallenge.domain.entities.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,8 +46,8 @@ public class UserRequestDTO {
     }
 
     public UserRequestDTO(String name, String email, String login, String password, String cpf,
-                          UserType userType, String streetAddress, Integer numberAddress,
-                          String cityAddress, String cepAddress) {
+            UserType userType, String streetAddress, Integer numberAddress,
+            String cityAddress, String cepAddress) {
         this.name = name;
         this.email = email;
         this.login = login;
