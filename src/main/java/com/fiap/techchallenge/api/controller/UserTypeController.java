@@ -127,8 +127,7 @@ public class UserTypeController {
     })
     public ResponseEntity<UserTypeResponseDTO> update(@PathVariable Long id,
             @Valid @RequestBody UserTypeRequestDTO dto) {
-        UserType userTypeToUpdate = toDomain(dto);
-        UserType userTypeUpdated = updateUserTypeUseCase.execute(id, userTypeToUpdate);
+        UserType userTypeUpdated = updateUserTypeUseCase.execute(id, dto.getName());
         UserTypeResponseDTO response = toResponseDTO(userTypeUpdated);
         return ResponseEntity.ok(response);
     }

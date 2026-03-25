@@ -2,10 +2,12 @@ package com.fiap.techchallenge.infrastructure.persistence.impl;
 
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.domain.entities.UserType;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -15,21 +17,31 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@Import(UserGatewayImpl.class)
+@Import({ UserGatewayImpl.class, UserTypeGatewayImpl.class })
 @ActiveProfiles("test")
 @DisplayName("User Gateway Implementation Tests")
 class UserGatewayImplTest {
 
     @Autowired
     private UserGatewayImpl userGateway;
+    @Autowired
+    private UserTypeGatewayImpl userTypeGateway;
+
+    private UserType commonUserType;
+
+    @BeforeEach
+    void setup() {
+        UserType userType = new UserType();
+        userType.setName("CLIENTE");
+
+        commonUserType = userTypeGateway.save(userType);
+    }
 
     @Test
     @DisplayName("Should save a domain user and retrieve it correctly (Mapping & Persistence)")
     void shouldSaveAndRetrieveUser() {
-        UserType userType = new UserType();
-        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                userType, "Rua A", 1, "SP", "01000000");
+                commonUserType, "Rua A", 1, "SP", "01000000");
 
         User savedUser = userGateway.save(user);
 
@@ -44,10 +56,8 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find user by email")
     void shouldFindUserByEmail() {
-        UserType userType = new UserType();
-        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                userType, "Rua A", 1, "SP", "01000000");
+                commonUserType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         Optional<User> foundUser = userGateway.findByEmail("joao@email.com");
@@ -59,10 +69,8 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should check existence by CPF")
     void shouldCheckExistsByCpf() {
-        UserType userType = new UserType();
-        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "12345678901", "12345678901",
-                userType, "Rua A", 1, "SP", "01000000");
+                commonUserType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         assertThat(userGateway.existsByCpf("12345678901")).isTrue();
@@ -72,11 +80,9 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find users by name containing ignore case")
     void shouldFindByNameContaining() {
-        UserType userType = new UserType();
-        userType.setId(1L);
-        User user1 = new User(null, "João Silva", "joao@email.com", "joao", "123", "1", userType, "A", 1, "SP",
+        User user1 = new User(null, "João Silva", "joao@email.com", "joao", "123", "1", commonUserType, "A", 1, "SP",
                 "1");
-        User user2 = new User(null, "Maria Silva", "maria@email.com", "maria", "123", "2", userType, "A", 2,
+        User user2 = new User(null, "Maria Silva", "maria@email.com", "maria", "123", "2", commonUserType, "A", 2,
                 "SP", "1");
         userGateway.save(user1);
         userGateway.save(user2);
@@ -90,10 +96,8 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should find user by login")
     void shouldFindUserByLogin() {
-        UserType userType = new UserType();
-        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                userType, "Rua A", 1, "SP", "01000000");
+                commonUserType, "Rua A", 1, "SP", "01000000");
         userGateway.save(user);
 
         Optional<User> foundUser = userGateway.findByLogin("joao.login");
@@ -105,10 +109,8 @@ class UserGatewayImplTest {
     @Test
     @DisplayName("Should delete user by ID")
     void shouldDeleteById() {
-        UserType userType = new UserType();
-        userType.setId(1L);
         User user = new User(null, "João", "joao@email.com", "joao.login", "senha123", "12345678901",
-                userType, "Rua A", 1, "SP", "01000000");
+                commonUserType, "Rua A", 1, "SP", "01000000");
         User savedUser = userGateway.save(user);
 
         userGateway.deleteById(savedUser.getId());

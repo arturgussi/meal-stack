@@ -50,10 +50,23 @@ public class UserType {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserType other)) return false;
+        return java.util.Objects.equals(id, other.id) &&
+               java.util.Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id, name);
+    }
+
+    @Override
     public String toString() {
         return "UserType{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name=" + name +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

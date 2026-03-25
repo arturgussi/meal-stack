@@ -124,4 +124,31 @@ public class Restaurant {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Restaurant other)) return false;
+        return java.util.Objects.equals(id, other.id) &&
+               java.util.Objects.equals(name, other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cuisineType='" + cuisineType + '\'' +
+                ", operatingHours='" + operatingHours + '\'' +
+                ", cityAddress='" + cityAddress + '\'' +
+                ", ownerId=" + ownerId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

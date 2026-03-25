@@ -13,16 +13,16 @@ public class UpdateUserTypeUseCase {
         this.userTypeGateway = userTypeGateway;
     }
 
-    public UserType execute(Long id, UserType userTypeUpdates) {
+    public UserType execute(Long id, String name) {
         UserType existingUserType = userTypeGateway.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 "Tipo de usuário não encontrado com ID: " + id));
 
-        if (!userTypeUpdates.getName().equals(existingUserType.getName())
-                && userTypeGateway.existsByName(userTypeUpdates.getName())) {
-            throw new BusinessRuleException("O nome do tipo de usuário já está em uso: " + userTypeUpdates.getName());
+        if (!name.equals(existingUserType.getName())
+                && userTypeGateway.existsByName(name)) {
+            throw new BusinessRuleException("O nome do tipo de usuário já está em uso: " + name);
         }
 
-        existingUserType.setName(userTypeUpdates.getName());
+        existingUserType.setName(name);
         return userTypeGateway.save(existingUserType);
     }
 

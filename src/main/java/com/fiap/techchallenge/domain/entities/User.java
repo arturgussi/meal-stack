@@ -169,6 +169,18 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User other)) return false;
+        return java.util.Objects.equals(id, other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -176,7 +188,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
                 ", cpf='" + cpf + '\'' +
-                ", userType=" + userType +
+                ", userType=" + (userType != null ? userType.getName() : null) +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

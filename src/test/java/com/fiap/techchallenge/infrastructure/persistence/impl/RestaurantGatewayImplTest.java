@@ -5,7 +5,7 @@ import com.fiap.techchallenge.infrastructure.persistence.repository.RestaurantRe
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 
 import org.springframework.test.context.ActiveProfiles;
@@ -33,7 +33,8 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldSaveRestaurantSuccessfully() {
-        Restaurant restaurant = new Restaurant(null, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", 1L);
+        Restaurant restaurant = new Restaurant(null, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP",
+                "01000000", 1L);
 
         Restaurant savedRestaurant = restaurantGateway.save(restaurant);
 
@@ -44,7 +45,8 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldFindRestaurantById() {
-        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000", 2L);
+        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ",
+                "20000000", 2L);
         Restaurant savedRestaurant = restaurantGateway.save(restaurant);
 
         Optional<Restaurant> foundRestaurantOptional = restaurantGateway.findById(savedRestaurant.getId());
@@ -62,8 +64,10 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldFindAllRestaurants() {
-        Restaurant res1 = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000", 1L);
-        Restaurant res2 = new Restaurant(null, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP", "01000000", 2L);
+        Restaurant res1 = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000",
+                1L);
+        Restaurant res2 = new Restaurant(null, "Tech Burger", "Fast Food", "08:00-22:00", "Rua A", 123, "SP",
+                "01000000", 2L);
         restaurantGateway.save(res1);
         restaurantGateway.save(res2);
 
@@ -74,7 +78,8 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldDeleteRestaurantById() {
-        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000", 2L);
+        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ",
+                "20000000", 2L);
         Restaurant savedRestaurant = restaurantGateway.save(restaurant);
         Long id = savedRestaurant.getId();
 
@@ -87,7 +92,8 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldReturnTrueIfRestaurantExistsByName() {
-        Restaurant restaurant = new Restaurant(null, "Unique Name", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000", 2L);
+        Restaurant restaurant = new Restaurant(null, "Unique Name", "Italian", "18:00-23:00", "Rua B", 456, "RJ",
+                "20000000", 2L);
         restaurantGateway.save(restaurant);
 
         boolean exists = restaurantGateway.existsByName("Unique Name");
@@ -102,7 +108,8 @@ class RestaurantGatewayImplTest {
 
     @Test
     void shouldReturnTrueIfRestaurantExistsById() {
-        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ", "20000000", 2L);
+        Restaurant restaurant = new Restaurant(null, "Tech Pizza", "Italian", "18:00-23:00", "Rua B", 456, "RJ",
+                "20000000", 2L);
         Restaurant savedRestaurant = restaurantGateway.save(restaurant);
 
         boolean exists = restaurantGateway.existsById(savedRestaurant.getId());

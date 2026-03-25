@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessRuleException.class)
     public ProblemDetail handleRegraNegocio(BusinessRuleException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
-                HttpStatus.UNPROCESSABLE_CONTENT,
+                HttpStatus.UNPROCESSABLE_ENTITY,
                 ex.getMessage());
         problemDetail.setTitle("Regra de negócio violada");
         problemDetail.setType(URI.create("https://api.techchallenge.com/errors/business-rule"));

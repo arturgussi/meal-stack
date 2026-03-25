@@ -93,6 +93,7 @@ class UserTest {
         User user = new User();
         UserType userType = new UserType();
         userType.setId(1L);
+        userType.setName("CLIENTE");
 
         user.setId(1L);
         user.setName("João");

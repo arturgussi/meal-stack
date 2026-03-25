@@ -18,7 +18,7 @@ public class DeleteUserTypeUseCase {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Tipo de usuário não encontrado com ID: " + id));
 
-        if ("CLIENTE".equals(userType.getName()) || "DONO_RESTAURANTE".equals(userType.getName())) {
+        if ("CLIENTE".equals(userType.getName()) || "DONO_RESTAURANTE".equals(userType.getName()) || "RESTAURANTE".equals(userType.getName())) {
             throw new BusinessRuleException(
                     "Não é permitido excluir os tipos de usuário 'CLIENTE' e 'DONO_RESTAURANTE'.");
         }

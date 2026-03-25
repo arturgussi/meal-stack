@@ -15,11 +15,23 @@ public class UserTypeEntity {
     @Column(name = "nm_tipo_usuario", nullable = false, length = 50)
     private String name;
 
-    @Column(name = "dt_criacao", nullable = false, updatable = false, insertable = false)
+    @Column(name = "dt_criacao", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "dt_atualizacao", nullable = false, updatable = false, insertable = false)
+    @Column(name = "dt_atualizacao", nullable = false)
     private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 
     public UserTypeEntity() {
     }
@@ -54,5 +66,4 @@ public class UserTypeEntity {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-
 }
