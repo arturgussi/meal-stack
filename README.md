@@ -57,4 +57,4 @@ Após rodar os testes, abra `target/site/jacoco/index.html`.
 
 ## 📦 Entrega
 - **Postman Collection**: Disponível na raiz do projeto como `postman_collection.json`.
-- **Vídeos e Documentação Adicional**: Verifique a pasta `docs/` (se disponível).
+- **Vídeos e Documentação Adicional**: Foi enviado em pasta zipada, juntamente ao relatório técnico, devido ao tamanho exceder o limite de upload no GitHub.
