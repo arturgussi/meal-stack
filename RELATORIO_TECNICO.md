@@ -2,6 +2,8 @@
 
 Este documento detalha as decisões arquiteturais, modelagem e padrões adotados na implementação da Fase 2, focada na evolução para **Clean Architecture** e na expansão do domínio do sistema de gestão de restaurantes.
 
+Vídeo de apresentação: foi enviado em pasta zipada, juntamente ao relatório técnico, devido ao tamanho exceder o limite de upload no GitHub.
+
 ---
 
 ## 1. Arquitetura: Evolução para Clean Architecture
