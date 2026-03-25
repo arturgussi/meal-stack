@@ -61,7 +61,7 @@ class UserTypeControllerTest {
     void shouldReturnAllUserTypes() throws Exception {
         when(listAllUserTypesUseCase.execute()).thenReturn(userTypes);
 
-        mockMvc.perform(get("/v2/user-types")
+        mockMvc.perform(get("/v1/user-types")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())

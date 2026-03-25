@@ -2,6 +2,9 @@ package com.fiap.techchallenge.domain.entities;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entidade que representa o tipo de um usuário (ex: CLIENTE, DONO_RESTAURANTE).
+ */
 public class UserType {
     private Long id;
     private String name;

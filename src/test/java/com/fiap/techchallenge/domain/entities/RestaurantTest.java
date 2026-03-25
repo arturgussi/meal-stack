@@ -82,4 +82,30 @@ class RestaurantTest {
         assertThat(restaurant.getCepAddress()).isEqualTo("20000000");
         assertThat(restaurant.getOwnerId()).isEqualTo(20L);
     }
+
+    @Test
+    void shouldTestEquality() {
+        Restaurant r1 = new Restaurant(1L, "A", "C", "H", "S", 1, "C", "CEP", 1L);
+        Restaurant r2 = new Restaurant(1L, "A", "C", "H", "S", 1, "C", "CEP", 1L);
+        Restaurant r3 = new Restaurant(2L, "B", "C", "H", "S", 1, "C", "CEP", 1L);
+
+        assertThat(r1).isEqualTo(r2);
+        assertThat(r1).isNotEqualTo(r3);
+        assertThat(r1).isNotEqualTo(null);
+        assertThat(r1).isNotEqualTo("not a restaurant");
+    }
+
+    @Test
+    void shouldTestHashCode() {
+        Restaurant r1 = new Restaurant(1L, "A", "C", "H", "S", 1, "C", "CEP", 1L);
+        Restaurant r2 = new Restaurant(1L, "A", "C", "H", "S", 1, "C", "CEP", 1L);
+
+        assertThat(r1.hashCode()).isEqualTo(r2.hashCode());
+    }
+
+    @Test
+    void shouldTestToString() {
+        Restaurant r = new Restaurant(1L, "Tech Burger", "C", "H", "S", 1, "C", "CEP", 1L);
+        assertThat(r.toString()).contains("Tech Burger").contains("1");
+    }
 }

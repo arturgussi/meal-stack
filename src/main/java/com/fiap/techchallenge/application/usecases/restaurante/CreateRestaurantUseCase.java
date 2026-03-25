@@ -7,6 +7,10 @@ import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
 import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
 
+/**
+ * Caso de uso para criação de um novo restaurante.
+ * Valida se o usuário dono já existe e se possui o tipo de usuário correto.
+ */
 public class CreateRestaurantUseCase {
 
     private final RestaurantGateway restaurantGateway;

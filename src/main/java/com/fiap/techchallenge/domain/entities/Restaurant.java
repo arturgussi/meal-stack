@@ -2,6 +2,9 @@ package com.fiap.techchallenge.domain.entities;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entidade que representa um restaurante no sistema.
+ */
 public class Restaurant {
 
     private Long id;
@@ -12,6 +15,7 @@ public class Restaurant {
     private Integer numberAddress;
     private String cityAddress;
     private String cepAddress;
+    /** ID do usuário que é dono deste restaurante */
     private Long ownerId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

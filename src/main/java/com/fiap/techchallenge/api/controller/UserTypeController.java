@@ -36,7 +36,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ProblemDetail;
 
 @RestController
-@RequestMapping("/v2/user-types")
+@RequestMapping("/v1/user-types")
 @Tag(name = "Tipos de Usuários", description = "API de gestão de tipos de usuários")
 public class UserTypeController {
 

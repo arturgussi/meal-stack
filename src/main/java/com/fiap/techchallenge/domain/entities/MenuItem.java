@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Entidade que representa um item no cardápio de um restaurante.
+ */
 public class MenuItem {
     private Long id;
     private String name;

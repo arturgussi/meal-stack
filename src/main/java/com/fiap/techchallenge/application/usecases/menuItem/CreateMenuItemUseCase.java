@@ -6,6 +6,9 @@ import com.fiap.techchallenge.domain.entities.MenuItem;
 import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
 import com.fiap.techchallenge.infrastructure.exception.ResourceNotFoundException;
 
+/**
+ * Caso de uso para criação de um novo item no cardápio de um restaurante.
+ */
 public class CreateMenuItemUseCase {
 
     private final MenuItemGateway menuItemGateway;

@@ -4,6 +4,10 @@ import com.fiap.techchallenge.application.gateways.user.UserGateway;
 import com.fiap.techchallenge.domain.entities.User;
 import com.fiap.techchallenge.infrastructure.exception.BusinessRuleException;
 
+/**
+ * Caso de uso para criação de um novo usuário.
+ * Valida unicidade de e-mail, login e CPF.
+ */
 public class CreateUserUseCase {
 
     private final UserGateway userGateway;
