@@ -1,0 +1,226 @@
+{
+	"info": {
+		"_postman_id": "85f4bd65-dabe-4bde-8d2f-f2f67f8d0d99",
+		"name": "Meal Stack - Tech Challenge Fase 2",
+		"description": "Collection for testing all CRUD operations in the Meal Stack project (Fase 2).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Types",
+			"item": [
+				{
+					"name": "List All User Types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/user-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"user-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Type",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Manager\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/user-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"user-types"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"cpf\": \"12345678901\",\n    \"email\": \"john@example.com\",\n    \"login\": \"johndoe\",\n    \"password\": \"pass123\",\n    \"userTypeId\": 1,\n    \"address\": {\n        \"street\": \"Main St\",\n        \"number\": 100,\n        \"city\": \"Tech City\",\n        \"cep\": \"12345678\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "List All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/restaurants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tech Burger\",\n    \"cuisineType\": \"Fast Food\",\n    \"operatingHours\": \"08:00 - 22:00\",\n    \"ownerId\": 1,\n    \"address\": {\n        \"street\": \"Burger Ave\",\n        \"number\": 500,\n        \"city\": \"Food Town\",\n        \"cep\": \"87654321\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/restaurants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menu Items",
+			"item": [
+				{
+					"name": "List All Menu Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/menu-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"menu-items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Menu Item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Classic Burger\",\n    \"description\": \"Delicious classic burger\",\n    \"price\": 25.50,\n    \"onlyOnSite\": true,\n    \"photoPath\": \"/images/classic.jpg\",\n    \"restaurantId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/menu-items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"menu-items"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

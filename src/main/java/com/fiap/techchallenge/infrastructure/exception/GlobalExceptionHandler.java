@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {
      * Trata exceções de recurso não encontrado.
      * Retorna status 404 (NOT_FOUND)
      */
-    @ExceptionHandler(RecursoNaoEncontradoException.class)
-    public ProblemDetail handleRecursoNaoEncontrado(RecursoNaoEncontradoException ex) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleRecursoNaoEncontrado(ResourceNotFoundException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.NOT_FOUND,
                 ex.getMessage());
@@ -35,10 +35,10 @@ public class GlobalExceptionHandler {
 
     /**
      * Trata exceções de regra de negócio.
-     * Retorna status 422 (UNPROCESSABLE_ENTITY)
+     * Retorna status 422 (UNPROCESSABLE_CONTENT)
      */
-    @ExceptionHandler(RegraNegocioException.class)
-    public ProblemDetail handleRegraNegocio(RegraNegocioException ex) {
+    @ExceptionHandler(BusinessRuleException.class)
+    public ProblemDetail handleRegraNegocio(BusinessRuleException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.UNPROCESSABLE_ENTITY,
                 ex.getMessage());
@@ -52,8 +52,8 @@ public class GlobalExceptionHandler {
      * Trata exceções de senha inválida.
      * Retorna status 401 (UNAUTHORIZED)
      */
-    @ExceptionHandler(SenhaInvalidaException.class)
-    public ProblemDetail handleSenhaInvalida(SenhaInvalidaException ex) {
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ProblemDetail handleSenhaInvalida(InvalidPasswordException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
                 HttpStatus.UNAUTHORIZED,
                 ex.getMessage());

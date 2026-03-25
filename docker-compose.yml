@@ -1,12 +1,35 @@
 services:
-  app:
+  app-dev:
+    profiles: ["dev"]
+    build:
+      context: .
+      target: dev
+    container_name: tech-challenge-app-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    volumes:
+      - .:/app
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/restaurant_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=restaurantuser
+      - SPRING_DATASOURCE_PASSWORD=restaurant123
+    depends_on:
+      - database
+    networks:
+      - tech-challenge-network
+
+  app-prod:
+    profiles: ["prod"]
     build:
       context: .
       target: prod
-    container_name: tech-challenge-app
+    container_name: tech-challenge-app-prod
     restart: unless-stopped
     ports:
-      - "8080:8080"   # Application port
+      - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
       - SPRING_DATASOURCE_URL=jdbc:mysql://database:3306/restaurant_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -18,6 +41,7 @@ services:
       - tech-challenge-network
 
   database:
+    profiles: ["dev", "prod"]
     image: mysql:8.4
     container_name: tech-challenge-db
     restart: unless-stopped

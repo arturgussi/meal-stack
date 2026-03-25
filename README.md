@@ -1,77 +1,60 @@
-# Tech Challenge Fase 1 - Sistema de Gestão de Restaurantes
+# Tech Challenge Fase 2 - Sistema de Gestão de Restaurantes (MealStack)
 
-Repositório do projeto da Tech Challenge Fase 1. API REST desenvolvida para gerenciar usuários (Clientes e Donos de Restaurante) em um sistema de gestão de restaurantes, servindo como base para as fases futuras.
+Repositório do projeto da Tech Challenge Fase 2. Esta aplicação é uma API REST robusta para gestão de restaurantes, incluindo cadastro de usuários, tipos de usuários, restaurantes e itens do cardápio, seguindo os princípios da **Clean Architecture**.
 
-## Sobre o Projeto
+## 🚀 Novidades da Fase 2
+- **Arquitetura Limpa (Clean Architecture)**: Separação clara entre Domínio, Aplicação e Infraestrutura.
+- **Domínio Expandido**: CRUD completo para Restaurantes e Itens do Cardápio.
+- **Qualidade**: Cobertura de testes superior a 80% (Domínio e Aplicação).
+- **Documentação**: API versionada (/v1) e documentada via Swagger/OpenAPI.
 
-O objetivo principal desta fase é implementar o domínio de usuários com persistência, regras de negócio e API REST.
+## 🛠️ Tecnologias Utilizadas
+- **Java 21 (LTS)**
+- **Spring Boot 3.4.x** (Spring Framework 6)
+- **Spring Data JPA** (Hibernate)
+- **MySQL 8.4**
+- **Flyway** (Migração de banco de dados)
+- **Docker & Docker Compose**
+- **JUnit 5, Mockito & AssertJ**
+- **JaCoCo** (Relatórios de cobertura)
 
-## Tecnologias Utilizadas
+## 🏗️ Arquitetura
+A aplicação segue os princípios da Clean Architecture:
+- `domain`: Entidades de negócio e regras fundamentais.
+- `application`: Casos de uso e interfaces de gateways.
+- `infrastructure`: Implementações de persistência, controllers (API), configurações e exceções.
 
-- Java 21 (LTS)
-- Spring Boot 3.2.1
-- Spring JDBC (JdbcTemplate)
-- MySQL 8.4
-- Docker & Docker Compose
-- JUnit 5 & Mockito
-- SpringDoc OpenAPI (Swagger)
-
-## Como Executar
+## 🚀 Como Executar
 
 ### Pré-requisitos
-- Docker e Docker Compose instalados
-- Portas `8080` (aplicação) e `3306` (MySQL) disponíveis
+- Docker e Docker Compose instalados.
+- Portas `8080`, `3306` e `5005` disponíveis.
 
-### Passos para execução
-
-1. **Clonar o repositório:**
+### Passos
+1. **Clonar e Entrar**:
    ```bash
    git clone https://github.com/arturgussi/meal-stack
-   ```
-   ```bash
    cd meal-stack
    ```
-
-2. **Iniciar o ambiente com Docker Compose:**
-   
-   O comando a seguir compila o projeto (multi-stage build), cria as imagens e inicia os containers.
+2. **Subir com Docker**:
    ```bash
-   docker compose up --build -d
+   # Modo Produção
+   docker compose --profile prod up --build -d
    ```
-   
-   A primeira execução pode levar alguns minutos para download das dependências do Maven.
+3. **Acessar**:
+   - **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+   - **API Base**: `http://localhost:8080/v1/`
 
-3. **Acessar a aplicação:**
-   - API Base: `http://localhost:8080/v1/usuarios`
-   - Documentação Swagger: `http://localhost:8080/swagger-ui.html`
+## 🧪 Testes e Cobertura
+A suite de testes conta com **131 testes automatizados**.
 
-## Executando Testes
-
-A suite de testes inclui 29 testes automatizados cobrindo Services e Controllers.
-
-**Via terminal local (Linux/Mac/Git Bash):**
+**Rodar testes locais**:
 ```bash
-./mvnw test
+./mvnw clean test
 ```
-**Nota:** Requer JDK 21 instalado e configurado na variável de ambiente `JAVA_HOME`
+**Ver relatório de cobertura**:
+Após rodar os testes, abra `target/site/jacoco/index.html`.
 
-**Via Docker - Modo desenvolvimento:**
-```bash
-docker compose exec app mvn test
-```
-**Nota:** Este comando requer que o `docker-compose.yml` esteja configurado com `target: dev`. A versão de produção (padrão da entrega) não inclui o Maven.
-
-**Via Docker - Modo produção:**
-Se estiver rodando a versão final de produção e quiser rodar os testes sem instalar nada localmente, use este comando:
-```bash
-docker run --rm -v "$(pwd):/app" -w /app eclipse-temurin:21-jdk-alpine sh -c "apk add --no-cache maven && mvn test"
-```
-*(No Windows PowerShell, substitua `$(pwd)` por `${PWD}`)*
-
-
-## Links Úteis
-
-| Recurso | URL |
-|---------|-----|
-| Swagger UI | http://localhost:8080/swagger-ui.html |
-| OpenAPI Spec (JSON) | http://localhost:8080/v1/api-docs |
+## 📦 Entrega
+- **Postman Collection**: Disponível na raiz do projeto como `postman_collection.json`.
+- **Vídeos e Documentação Adicional**: Verifique a pasta `docs/` (se disponível).
