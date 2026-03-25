@@ -1,132 +1,118 @@
-# 📄 Relatório Técnico - Tech Challenge Fase 1
+# 📄 Relatório Técnico - Tech Challenge Fase 2
 
-Este documento detalha as decisões arquiteturais, modelagem e padrões adotados na implementação da Fase 1, servindo como evidência técnica para a avaliação do projeto.
+Este documento detalha as decisões arquiteturais, modelagem e padrões adotados na implementação da Fase 2, focada na evolução para **Clean Architecture** e na expansão do domínio do sistema de gestão de restaurantes.
 
 ---
 
-## 1. Arquitetura e Design Patterns
+## 1. Arquitetura: Evolução para Clean Architecture
 
-O projeto segue uma arquitetura em camadas bem definida (MVC - Model View Controller no contexto Spring REST), fortemente baseada nos princípios **SOLID** para garantir testabilidade e manutenibilidade.
+Nesta fase, o projeto foi refatorado de um padrão MVC tradicional para **Clean Architecture (Arquitetura Limpa)**. O objetivo é desacoplar o núcleo de negócio de frameworks e detalhes de infraestrutura.
 
 ### Camadas e Responsabilidades
 
-1.  **API Layer (`.api.controller`)**:
-    *   **Responsabilidade**: Tratar requisições HTTP e retornar respostas adequadas.
-    *   **Padrão**: RESTful.
-    *   **SOLID (SRP)**: Controllers não contêm regras de negócio; apenas delegam para Services.
+1.  **Domain Layer (`com.fiap.techchallenge.domain`)**:
+    *   **Entidades**: Contém o "Enterprise Business Rules" (`User`, `Restaurant`, `MenuItem`, `UserType`).
+    *   **Independência**: Não possui dependências de bibliotecas externas (nem JPA). As entidades são POJOs puros com lógica de negócio intrínseca.
 
-2.  **Service Layer (`.application.service`)**:
-    *   **Responsabilidade**: Encapsular regras de negócio (Validações, Lógica).
-    *   **Padrão**: DIP (Dependency Inversion Principle). A camada depende de abstrações (`UsuarioRepository` interface), não de implementações concretas de acesso a dados.
-    *   **Padrão**: OCP (Open/Closed Principle). A interface `UsuarioService` define o contrato, permitindo que a implementação `UsuarioServiceImpl` evolua sem quebrar os clientes.
+2.  **Application Layer (`com.fiap.techchallenge.application`)**:
+    *   **Use Cases**: Implementa os "Application Business Rules". Cada operação (ex: `CreateRestaurantUseCase`) é um caso de uso isolado.
+    *   **Gateways (Interfaces)**: Define os contratos de persistência que a infraestrutura deve seguir (Inversão de Dependência).
+    *   **DTOs**: Objetos de transferência de dados para entrada e saída.
 
-3.  **Domain Layer (`.domain`)**:
-    *   **Responsabilidade**: Representar o núcleo do negócio.
-    *   **Componentes**: Entidades JPA (`Usuario`) e Enums (`TipoUsuario`).
-    *   **Isolamento**: As entidades não dependem de frameworks externos além de JPA/Hibernate.
-
-4.  **Infrastructure Layer (`.infrastructure`)**:
-    *   **Responsabilidade**: Configurações globais e tratamento de exceções.
-    *   **Destaque**: `GlobalExceptionHandler` implementando **ProblemDetail (RFC 7807)**, garantindo erros padronizados e semânticos.
+3.  **Infrastructure Layer (`com.fiap.techchallenge.infrastructure`)**:
+    *   **Persistence**: Implementa os Gateways usando Spring Data JPA e Hibernate.
+    *   **Configuration**: Define os Beans do Spring para injetar Use Cases (os Use Cases não usam `@Service` para manter a pureza).
+    *   **Controllers**: Adaptadores que convertem requisições HTTP em chamadas aos Use Cases.
 
 ---
 
-## 2. Modelagem de Dados (ERD)
+## 2. Modelagem de Dados Ampliada
 
-A modelagem de dados foi implementada utilizando JPA e MySQL. Abaixo, o diagrama Entidade-Relacionamento da tabela `tb_usuarios`.
+O modelo foi expandido para suportar o fluxo completo de gestão.
+
+### Diagrama Entidade-Relacionamento (ERD)
 
 ```mermaid
 erDiagram
+    TB_TIPO_USUARIO ||--o{ TB_USUARIOS : "define"
+    TB_USUARIOS ||--o{ TB_RESTAURANTE : "é dono de"
+    TB_RESTAURANTE ||--o{ TB_ITEM_CARDAPIO : "contém"
+
+    TB_TIPO_USUARIO {
+        bigint id PK
+        varchar nm_tipo_usuario "Dono vs Cliente"
+    }
+
     TB_USUARIOS {
-        bigint id_usuario PK "Auto Increment"
-        varchar(100) nm_usuario "Nome completo"
-        varchar(100) ds_email UK "Unique Index"
-        varchar(50) ds_login "Username de acesso"
-        varchar(255) ds_senha "Senha criptografada"
-        varchar(11) nr_cpf "CPF (apenas números)"
-        enum tp_usuario "CLIENTE ou DONO_RESTAURANTE"
-        varchar(200) ds_endereco_rua
-        varchar(10) nr_endereco_numero
-        varchar(100) ds_endereco_cidade
-        varchar(8) nr_endereco_cep
-        datetime dt_criacao
-        datetime dt_atualizacao
+        bigint id PK
+        varchar nm_usuario
+        varchar ds_email
+        varchar nr_cpf
+        bigint id_tipo_usuario FK
+    }
+
+    TB_RESTAURANTE {
+        bigint id PK
+        varchar nm_restaurante
+        varchar ds_tipo_cozinha
+        varchar ds_horario_funcionamento
+        bigint id_dono FK
+    }
+
+    TB_ITEM_CARDAPIO {
+        bigint id PK
+        varchar nm_item_cardapio
+        decimal vl_preco
+        boolean bl_apenas_no_restaurante
+        bigint id_restaurante FK
     }
 ```
 
-### Decisões de Modelagem:
-*   **Snake Case**: Mapeamento objeto-relacional ajustado para snake_case no banco (`nome` -> `nm_usuario`), seguindo boas práticas de DBA.
-*   **Constraints**:
-    *   `UK_ds_email`: Garante unicidade de emails no nível do banco.
-    *   `NOT NULL`: Aplicado em campos obrigatórios para integridade dos dados.
-*   **Enums**: `tp_usuario` mapeado como String (`EnumType.STRING`) para legibilidade no banco.
+### Decisões Técnicas:
+*   **Flyway**: Todas as alterações de schema (criação de novas tabelas e FKs) são gerenciadas via migrations (`src/main/resources/db/migration`), garantindo versionamento do banco.
+*   **Audit**: Todas as tabelas principais possuem `dt_criacao` e `dt_atualizacao`.
 
 ---
 
-## 3. API Endpoints e Padrões
+## 3. API Endpoints (Versionamento /v1)
 
-A API segue o nível 2 do modelo de maturidade de Richardson (Verbos HTTP corretos).
+A API foi padronizada e expandida.
 
-### Principais Endpoints
-
-| Método | Endpoint | Descrição | Status Sucesso |
-|--------|----------|-----------|----------------|
-| `POST` | `/v1/users` | Cria novo usuário | `201 Created` |
-| `GET` | `/v1/users/{id}` | Busca usuário por ID | `200 OK` |
-| `PUT` | `/v1/users/{id}` | Atualiza dados cadastrais | `200 OK` |
-| `PATCH` | `/v1/users/{id}/senha` | Troca de senha (exclusivo) | `204 No Content` |
-| `POST` | `/v1/users/login` | Valida credenciais | `200 OK` |
-
-### Tratamento de Erros (RFC 7807)
-
-Erros não retornam apenas strings, mas objetos JSON estruturados:
-```json
-{
-  "type": "https://api.techchallenge.com/errors/business-rule",
-  "title": "Regra de negócio violada",
-  "status": 422,
-  "detail": "Email já cadastrado: joao@email.com",
-  "timestamp": "2026-01-18T10:00:00Z"
-}
-```
+| Entidade | Base Path | Operações Disponíveis |
+|----------|-----------|------------------------|
+| **Tipos de Usuário** | `/v1/user-types` | CRUD Completo |
+| **Usuários** | `/v1/users` | CRUD + Login + Troca Senha |
+| **Restaurantes** | `/v1/restaurants` | CRUD Completo |
+| **Itens do Cardápio**| `/v1/menu-items` | CRUD Completo |
 
 ---
 
-## 4. Evidências de Qualidade (Desafio Extra)
+## 4. Garantia de Qualidade e Testes
 
-Este projeto cumpre o requisito de **Desafio Extra** através de uma suíte de testes robusta.
+O projeto atingiu um alto nível de maturidade técnica através de testes automatizados.
 
-### ✅ Cobertura de Testes
-*   **Testes Unitários (`UsuarioServiceTest`)**: Isolam a regra de negócio usando **Mockito**. Cobrem 100% dos cenários de validação (email duplicado, busca inexistente, senha incorreta).
-*   **Testes de Integração (`UsuarioControllerTest`)**: Validam a camada Web usando `@WebMvcTest`. Garantem que os endpoints retornam os status codes corretos (404, 422, 201).
-*   **Frameworks**: JUnit 5, Mockito.
+### Cobertura e Métricas
+- **Meta Auditada**: >80% de cobertura instruction/branch nas camadas de **Domínio** e **Aplicação**.
+- **Resultado Final**:
+  - `UserType`: 98%
+  - `MenuItem`: 88.8%
+  - `User`: 87.4%
+  - `Restaurant`: 99%
+- **Volume**: **131 testes automatizados** executados com sucesso.
 
-### ✅ Validação de Dados
-Uso extensivo de **Bean Validation** (`@Valid`, `@NotBlank`, `@Email`, `@Size`) nos DTOs, garantindo que dados inválidos sejam rejeitados antes mesmo de chegar à camada de serviço.
+### Práticas SOLID Aplicadas
+- **SRP**: Cada Use Case foca em uma única funcionalidade.
+- **DIP**: A camada de Aplicação depende de interfaces de Gateway, não do JPA diretamente.
+- **ISP**: Interfaces de Gateway granulares por domínio.
 
 ---
 
-## 5. Guia de Execução Docker
+## 5. Infraestrutura Moderna (Docker)
 
-O projeto utiliza Docker Compose para orquestração.
+O ambiente foi Dockerizado com suporte a perfis de execução:
 
-### Arquivo `docker-compose.yml`
+- **Perfil `prod`**: Imagem otimizada (JRE Alpine), focada em performance e segurança.
+- **Perfil `dev`**: Habilita ferramentas de build, hot-reload (Spring DevTools) e debug remoto (porta 5005).
+- **Orquestração**: O `docker-compose.yml` agora utiliza **Healthchecks** para garantir que a aplicação só inicie após o MySQL estar pronto para conexões.
 
-*   **Serviço `app`**:
-    *   Portas: `8080:8080` (API), `5005:5005` (Debug Remoto).
-    *   Volume: Bind mount `.` para hot-reload em desenvolvimento.
-    *   Build: Multi-stage (Maven -> JRE Alpine).
-*   **Serviço `database`**:
-    *   Imagem: `mysql:8.4`.
-    *   Porta: `3306` (Interna).
-    *   Dados persistentes: Volume `mysql_data`.
-
-### Como Executar
-
-Simplesmente execute na raiz do projeto:
-
-```bash
-docker compose up --build
-```
-
-A aplicação estará pronta quando visualizar o log: `Started TechChallengeApplication in ... seconds`.
+---
