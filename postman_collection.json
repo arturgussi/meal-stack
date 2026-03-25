@@ -1,226 +1,537 @@
 {
-	"info": {
-		"_postman_id": "85f4bd65-dabe-4bde-8d2f-f2f67f8d0d99",
-		"name": "Meal Stack - Tech Challenge Fase 2",
-		"description": "Collection for testing all CRUD operations in the Meal Stack project (Fase 2).",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "User Types",
-			"item": [
-				{
-					"name": "List All User Types",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/user-types",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"user-types"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create User Type",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Manager\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/user-types",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"user-types"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Users",
-			"item": [
-				{
-					"name": "List All Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"John Doe\",\n    \"cpf\": \"12345678901\",\n    \"email\": \"john@example.com\",\n    \"login\": \"johndoe\",\n    \"password\": \"pass123\",\n    \"userTypeId\": 1,\n    \"address\": {\n        \"street\": \"Main St\",\n        \"number\": 100,\n        \"city\": \"Tech City\",\n        \"cep\": \"12345678\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Restaurants",
-			"item": [
-				{
-					"name": "List All Restaurants",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/restaurants",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"restaurants"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Restaurant",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Tech Burger\",\n    \"cuisineType\": \"Fast Food\",\n    \"operatingHours\": \"08:00 - 22:00\",\n    \"ownerId\": 1,\n    \"address\": {\n        \"street\": \"Burger Ave\",\n        \"number\": 500,\n        \"city\": \"Food Town\",\n        \"cep\": \"87654321\"\n    }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/restaurants",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"restaurants"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Menu Items",
-			"item": [
-				{
-					"name": "List All Menu Items",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/v1/menu-items",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"menu-items"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Menu Item",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Classic Burger\",\n    \"description\": \"Delicious classic burger\",\n    \"price\": 25.50,\n    \"onlyOnSite\": true,\n    \"photoPath\": \"/images/classic.jpg\",\n    \"restaurantId\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/v1/menu-items",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"menu-items"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "name": "Meal Stack API",
+    "description": "Collection completa da API Meal Stack — gestão de tipos de usuário, usuários, restaurantes e itens do cardápio.",
+    "_postman_id": "meal-stack-api-v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "userTypeId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "restaurantId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "menuItemId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Tipos de Usuário",
+      "description": "Endpoints para gestão de tipos de usuário (CLIENTE, DONO_RESTAURANTE, etc.)",
+      "item": [
+        {
+          "name": "Criar tipo de usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CLIENTE\"\n}"
+            },
+            "description": "Cria um novo tipo de usuário. Retorna 201 em caso de sucesso e 422 se o nome já estiver cadastrado."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar tipo de usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types/{{userTypeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types", "{{userTypeId}}"]
+            },
+            "description": "Retorna os dados de um tipo de usuário pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar tipos de usuário por nome (parcial)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types/name/cliente",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types", "name", "cliente"]
+            },
+            "description": "Busca tipos de usuário cujo nome contenha o termo (case-insensitive). Retorna 404 se nenhum for encontrado."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar todos os tipos de usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types"]
+            },
+            "description": "Retorna a lista completa de tipos de usuário cadastrados."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar tipo de usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types/{{userTypeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types", "{{userTypeId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"DONO_RESTAURANTE\"\n}"
+            },
+            "description": "Atualiza o nome de um tipo de usuário pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir tipo de usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/user-types/{{userTypeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "user-types", "{{userTypeId}}"]
+            },
+            "description": "Remove um tipo de usuário pelo ID. Retorna 204 em caso de sucesso."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "description": "Endpoints para gestão de usuários do sistema.",
+      "item": [
+        {
+          "name": "Criar usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Carlos Eduardo Mendes\",\n  \"email\": \"carlos.mendes@email.com.br\",\n  \"login\": \"carlos.mendes\",\n  \"password\": \"senha@123\",\n  \"cpf\": \"74823916054\",\n  \"userType\": {\n    \"id\": 1,\n    \"name\": \"CLIENTE\"\n  },\n  \"streetAddress\": \"Rua das Palmeiras\",\n  \"numberAddress\": 452,\n  \"cityAddress\": \"São Paulo\",\n  \"cepAddress\": \"01310100\"\n}"
+            },
+            "description": "Cria um novo usuário. CPF, email e login devem ser únicos. O campo `userType` deve referenciar um tipo de usuário existente."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar usuário — Dono de Restaurante",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fernanda Oliveira Costa\",\n  \"email\": \"fernanda.costa@restaurantes.com.br\",\n  \"login\": \"fernanda.costa\",\n  \"password\": \"restau@456\",\n  \"cpf\": \"38291047562\",\n  \"userType\": {\n    \"id\": 2,\n    \"name\": \"DONO_RESTAURANTE\"\n  },\n  \"streetAddress\": \"Avenida Paulista\",\n  \"numberAddress\": 1578,\n  \"cityAddress\": \"São Paulo\",\n  \"cepAddress\": \"01310200\"\n}"
+            },
+            "description": "Cria um usuário do tipo DONO_RESTAURANTE, que poderá cadastrar restaurantes."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar usuário por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "{{userId}}"]
+            },
+            "description": "Retorna os dados de um usuário pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar usuários por nome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/name/Carlos",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "name", "Carlos"]
+            },
+            "description": "Busca usuários cujo nome contenha o texto fornecido (case-insensitive)."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar todos os usuários",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users"]
+            },
+            "description": "Retorna todos os usuários cadastrados."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar usuário",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "{{userId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Carlos Eduardo Mendes Silva\",\n  \"email\": \"carlos.mendes@novoemail.com.br\",\n  \"login\": \"carlos.mendes\",\n  \"password\": \"senha@123\",\n  \"cpf\": \"74823916054\",\n  \"userType\": {\n    \"id\": 1,\n    \"name\": \"CLIENTE\"\n  },\n  \"streetAddress\": \"Rua das Flores\",\n  \"numberAddress\": 99,\n  \"cityAddress\": \"Campinas\",\n  \"cepAddress\": \"13010100\"\n}"
+            },
+            "description": "Atualiza os dados do usuário (exceto senha, CPF e login). Para trocar a senha use PATCH /v1/users/{id}/password."
+          },
+          "response": []
+        },
+        {
+          "name": "Alterar senha",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/{{userId}}/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "{{userId}}", "password"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"senhaAtual\": \"senha@123\",\n  \"novaSenha\": \"novaSenha@456\"\n}"
+            },
+            "description": "Altera a senha do usuário. Requer confirmação da senha atual. Retorna 204 em caso de sucesso e 401 se a senha atual estiver incorreta."
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"carlos.mendes\",\n  \"senha\": \"senha@123\"\n}"
+            },
+            "description": "Valida as credenciais de login. Retorna os dados do usuário se válido, ou 401 se as credenciais forem inválidas."
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "users", "{{userId}}"]
+            },
+            "description": "Remove um usuário do sistema. Retorna 204 em caso de sucesso."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Restaurantes",
+      "description": "Endpoints para gestão de restaurantes. O dono deve ser um usuário do tipo DONO_RESTAURANTE.",
+      "item": [
+        {
+          "name": "Criar restaurante",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cantina da Nonna\",\n  \"cuisineType\": \"Italiana\",\n  \"operatingHours\": \"Seg a Sex: 11h às 15h e 18h às 23h | Sáb e Dom: 11h às 23h\",\n  \"streetAddress\": \"Rua Augusta\",\n  \"numberAddress\": 847,\n  \"cityAddress\": \"São Paulo\",\n  \"cepAddress\": \"01305100\",\n  \"ownerId\": 2\n}"
+            },
+            "description": "Cria um novo restaurante. O `ownerId` deve referenciar um usuário do tipo DONO_RESTAURANTE. Retorna 422 se o nome já estiver cadastrado."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar restaurante — Churrascaria",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Churrascaria Gaúcha do Sul\",\n  \"cuisineType\": \"Churrasco\",\n  \"operatingHours\": \"Todos os dias: 12h às 15h e 19h às 23h\",\n  \"streetAddress\": \"Avenida Brasil\",\n  \"numberAddress\": 3200,\n  \"cityAddress\": \"Porto Alegre\",\n  \"cepAddress\": \"90230160\",\n  \"ownerId\": 2\n}"
+            },
+            "description": "Exemplo de criação de restaurante de churrasco."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar restaurante por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants/{{restaurantId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants", "{{restaurantId}}"]
+            },
+            "description": "Retorna os dados de um restaurante pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar todos os restaurantes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants"]
+            },
+            "description": "Retorna todos os restaurantes cadastrados."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar restaurante",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants/{{restaurantId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants", "{{restaurantId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Cantina da Nonna — Unidade Centro\",\n  \"cuisineType\": \"Italiana e Mediterrânea\",\n  \"operatingHours\": \"Seg a Sex: 11h30 às 15h e 18h às 23h | Sáb e Dom: 12h às 23h\",\n  \"streetAddress\": \"Rua Augusta\",\n  \"numberAddress\": 847,\n  \"cityAddress\": \"São Paulo\",\n  \"cepAddress\": \"01305100\",\n  \"ownerId\": 2\n}"
+            },
+            "description": "Atualiza os dados de um restaurante pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Excluir restaurante",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/restaurants/{{restaurantId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "restaurants", "{{restaurantId}}"]
+            },
+            "description": "Remove um restaurante do sistema. Retorna 204 em caso de sucesso."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Itens do Cardápio",
+      "description": "Endpoints para gestão de itens do cardápio dos restaurantes.",
+      "item": [
+        {
+          "name": "Criar item no cardápio",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lasanha à Bolonhesa\",\n  \"description\": \"Lasanha artesanal com molho bolonhesa de carne bovina, queijo parmesão e molho bechamel\",\n  \"price\": 52.90,\n  \"onlyOnSite\": false,\n  \"photoPath\": \"/imagens/lasanha-bolonhesa.jpg\",\n  \"restaurantId\": 1\n}"
+            },
+            "description": "Cria um novo item no cardápio de um restaurante. O campo `restaurantId` deve referenciar um restaurante existente."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar item no cardápio — Só no Local",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Picanha na Brasa\",\n  \"description\": \"Picanha premium grelhada na brasa, servida com farofa de bacon, vinagrete e arroz biro-biro\",\n  \"price\": 98.50,\n  \"onlyOnSite\": true,\n  \"photoPath\": \"/imagens/picanha-brasa.jpg\",\n  \"restaurantId\": 2\n}"
+            },
+            "description": "Exemplo de item disponível apenas para consumo no local (onlyOnSite: true)."
+          },
+          "response": []
+        },
+        {
+          "name": "Criar item no cardápio — Bebida",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Suco de Açaí com Guaraná\",\n  \"description\": \"Suco natural de açaí batido com guaraná e mel, 500ml\",\n  \"price\": 18.00,\n  \"onlyOnSite\": false,\n  \"photoPath\": \"/imagens/suco-acai.jpg\",\n  \"restaurantId\": 1\n}"
+            },
+            "description": "Exemplo de bebida no cardápio."
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar item por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items/{{menuItemId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items", "{{menuItemId}}"]
+            },
+            "description": "Retorna os dados de um item do cardápio pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Listar itens por restaurante",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items/restaurant/{{restaurantId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items", "restaurant", "{{restaurantId}}"]
+            },
+            "description": "Retorna todos os itens do cardápio de um restaurante específico."
+          },
+          "response": []
+        },
+        {
+          "name": "Atualizar item",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items/{{menuItemId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items", "{{menuItemId}}"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lasanha à Bolonhesa Especial\",\n  \"description\": \"Lasanha artesanal com duplo molho bolonhesa, queijo parmesão importado, molho bechamel e ervas finas\",\n  \"price\": 59.90,\n  \"onlyOnSite\": false,\n  \"photoPath\": \"/imagens/lasanha-bolonhesa-especial.jpg\",\n  \"restaurantId\": 1\n}"
+            },
+            "description": "Atualiza os dados de um item do cardápio pelo ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Remover item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/menu-items/{{menuItemId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "menu-items", "{{menuItemId}}"]
+            },
+            "description": "Remove um item do cardápio. Retorna 204 em caso de sucesso."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
 }
